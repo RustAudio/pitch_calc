@@ -3,3 +3,7 @@
 name = "pitch_calc"
 version = "0.1.0"
 authors = ["mitchmindtree <mitchell.nordine@gmail.com>"]
+
+[lib]
+name = "pitch_calc"
+
