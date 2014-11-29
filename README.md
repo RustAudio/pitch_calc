@@ -21,5 +21,5 @@ Add the following to your Cargo.toml.
 git = "https://github.com/RustAudio/pitch_calc"
 ```
 
-See [the example](https://github.com/RustAudio/pitch_calc/blog/master/examples/test.rs) for a simple demonstration.
+See [the example](https://github.com/RustAudio/pitch_calc/blob/master/examples/test.rs) for a simple demonstration.
 
