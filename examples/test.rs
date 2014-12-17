@@ -50,9 +50,11 @@ fn main() {
 
     // We can also "weight" a particular area of the frequency spectrum using the scaled
     // percentage type.
+    // - weight > 1 will weight the low end of the spectrum.
+    // - 0 < weight < 1 will weight the high end of the spectrum.
+    // More precisely, `ScaledPerc` represents ``` (Percentage / 100.0)^weight ```.
     let weight = 3.0;
     for i in range(0u, 10) {
-        // ScaledPerc represents ( Percentage / 100.0 ).powf(weight)
         let perc = ScaledPerc(i as f64 / 10.0, weight);
         println!("{}% == {}hz is closest to {}", perc.perc(), perc.hz(), perc.letter_octave())
     }

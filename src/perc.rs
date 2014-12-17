@@ -16,7 +16,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a percentage between the min and max hz.
-#[deriving(Show, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, Encodable, Decodable)]
 pub struct Perc(pub f64);
 
 /// For types that can be represented as a frequency percentage.
@@ -67,35 +67,35 @@ impl ToStep for Perc {
 
 impl Add<Perc, Perc> for Perc {
     #[inline]
-    fn add(&self, rhs: &Perc) -> Perc {
+    fn add(self, rhs: Perc) -> Perc {
         Perc(self.perc() + rhs.perc())
     }
 }
 
 impl Sub<Perc, Perc> for Perc {
     #[inline]
-    fn sub(&self, rhs: &Perc) -> Perc {
+    fn sub(self, rhs: Perc) -> Perc {
         Perc(self.perc() - rhs.perc())
     }
 }
 
 impl Mul<Perc, Perc> for Perc {
     #[inline]
-    fn mul(&self, rhs: &Perc) -> Perc {
+    fn mul(self, rhs: Perc) -> Perc {
         Perc(self.perc() * rhs.perc())
     }
 }
 
 impl Div<Perc, Perc> for Perc {
     #[inline]
-    fn div(&self, rhs: &Perc) -> Perc {
+    fn div(self, rhs: Perc) -> Perc {
         Perc(self.perc() / rhs.perc())
     }
 }
 
 impl Rem<Perc, Perc> for Perc {
     #[inline]
-    fn rem(&self, rhs: &Perc) -> Perc {
+    fn rem(self, rhs: Perc) -> Perc {
         Perc(self.perc() % rhs.perc())
     }
 }

@@ -18,7 +18,7 @@ pub type ScaleWeight = f32;
 pub const DEFAULT_SCALE_WEIGHT: ScaleWeight = 4.0;
 
 /// Pitch representation in the form of a scaled percentage between the min and max hz.
-#[deriving(Show, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, Encodable, Decodable)]
 pub struct ScaledPerc(pub f64, pub ScaleWeight);
 
 impl ScaledPerc {
@@ -91,35 +91,35 @@ impl ToStep for ScaledPerc {
 
 impl Add<ScaledPerc, ScaledPerc> for ScaledPerc {
     #[inline]
-    fn add(&self, rhs: &ScaledPerc) -> ScaledPerc {
+    fn add(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() + rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
 impl Sub<ScaledPerc, ScaledPerc> for ScaledPerc {
     #[inline]
-    fn sub(&self, rhs: &ScaledPerc) -> ScaledPerc {
+    fn sub(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() - rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
 impl Mul<ScaledPerc, ScaledPerc> for ScaledPerc {
     #[inline]
-    fn mul(&self, rhs: &ScaledPerc) -> ScaledPerc {
+    fn mul(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() * rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
 impl Div<ScaledPerc, ScaledPerc> for ScaledPerc {
     #[inline]
-    fn div(&self, rhs: &ScaledPerc) -> ScaledPerc {
+    fn div(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() / rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
 impl Rem<ScaledPerc, ScaledPerc> for ScaledPerc {
     #[inline]
-    fn rem(&self, rhs: &ScaledPerc) -> ScaledPerc {
+    fn rem(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() % rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }

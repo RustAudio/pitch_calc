@@ -1,6 +1,9 @@
 [package]
 
 name = "pitch_calc"
-version = "0.1.0"
+description = "A library for musical pitch conversions! Provides functions and methods for converting between frequency, midi-step and letter-octave."
+version = "0.7.1"
 authors = ["mitchmindtree <mitchell.nordine@gmail.com>"]
-
+readme = "README.md"
+keywords = ["pitch", "dsp", "audio", "music", "conversion"]
+license = "Apache-2.0/MIT"

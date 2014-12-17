@@ -7,7 +7,7 @@ use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
 
-#[deriving(Clone, PartialEq, PartialOrd, Show, Encodable, Decodable)]
+#[deriving(Copy, Clone, PartialEq, PartialOrd, Show, Encodable, Decodable)]
 pub enum Letter {
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 }
