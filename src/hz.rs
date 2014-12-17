@@ -19,7 +19,7 @@ pub const MAX: f32 = 20_000.0;
 pub const MIN: f32 = 20.0;
 
 /// Pitch representation in the form of a frequency (hz).
-#[deriving(Show, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, Encodable, Decodable)]
 pub struct Hz(pub f32);
 
 /// For types that can be represented in hz.
@@ -71,35 +71,35 @@ impl ToStep for Hz {
 
 impl Add<Hz, Hz> for Hz {
     #[inline]
-    fn add(&self, rhs: &Hz) -> Hz {
+    fn add(self, rhs: Hz) -> Hz {
         Hz(self.hz() + rhs.hz())
     }
 }
 
 impl Sub<Hz, Hz> for Hz {
     #[inline]
-    fn sub(&self, rhs: &Hz) -> Hz {
+    fn sub(self, rhs: Hz) -> Hz {
         Hz(self.hz() - rhs.hz())
     }
 }
 
 impl Mul<Hz, Hz> for Hz {
     #[inline]
-    fn mul(&self, rhs: &Hz) -> Hz {
+    fn mul(self, rhs: Hz) -> Hz {
         Hz(self.hz() * rhs.hz())
     }
 }
 
 impl Div<Hz, Hz> for Hz {
     #[inline]
-    fn div(&self, rhs: &Hz) -> Hz {
+    fn div(self, rhs: Hz) -> Hz {
         Hz(self.hz() / rhs.hz())
     }
 }
 
 impl Rem<Hz, Hz> for Hz {
     #[inline]
-    fn rem(&self, rhs: &Hz) -> Hz {
+    fn rem(self, rhs: Hz) -> Hz {
         Hz(self.hz() % rhs.hz())
     }
 }

@@ -16,7 +16,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a MIDI-esque Step.
-#[deriving(Show, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, Encodable, Decodable)]
 pub struct Step(pub f32);
 
 /// For types that can be represented as a pitch step.
@@ -68,35 +68,35 @@ impl ToStep for Step {
 
 impl Add<Step, Step> for Step {
     #[inline]
-    fn add(&self, rhs: &Step) -> Step {
+    fn add(self, rhs: Step) -> Step {
         Step(self.step() + rhs.step())
     }
 }
 
 impl Sub<Step, Step> for Step {
     #[inline]
-    fn sub(&self, rhs: &Step) -> Step {
+    fn sub(self, rhs: Step) -> Step {
         Step(self.step() - rhs.step())
     }
 }
 
 impl Mul<Step, Step> for Step {
     #[inline]
-    fn mul(&self, rhs: &Step) -> Step {
+    fn mul(self, rhs: Step) -> Step {
         Step(self.step() * rhs.step())
     }
 }
 
 impl Div<Step, Step> for Step {
     #[inline]
-    fn div(&self, rhs: &Step) -> Step {
+    fn div(self, rhs: Step) -> Step {
         Step(self.step() / rhs.step())
     }
 }
 
 impl Rem<Step, Step> for Step {
     #[inline]
-    fn rem(&self, rhs: &Step) -> Step {
+    fn rem(self, rhs: Step) -> Step {
         Step(self.step() % rhs.step())
     }
 }

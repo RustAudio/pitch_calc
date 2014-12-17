@@ -19,7 +19,7 @@ use super::{
 pub type Octave = i32;
 
 /// Pitch representation in the form of a frequency (hz).
-#[deriving(Show, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, Encodable, Decodable)]
 pub struct LetterOctave(pub Letter, pub Octave);
 
 /// For types that can be represented as a musical Letter and an Octave.
@@ -84,35 +84,35 @@ impl ToStep for LetterOctave {
 
 impl Add<LetterOctave, LetterOctave> for LetterOctave {
     #[inline]
-    fn add(&self, rhs: &LetterOctave) -> LetterOctave {
+    fn add(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() + rhs.to_step()).to_letter_octave()
     }
 }
 
 impl Sub<LetterOctave, LetterOctave> for LetterOctave {
     #[inline]
-    fn sub(&self, rhs: &LetterOctave) -> LetterOctave {
+    fn sub(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() - rhs.to_step()).to_letter_octave()
     }
 }
 
 impl Mul<LetterOctave, LetterOctave> for LetterOctave {
     #[inline]
-    fn mul(&self, rhs: &LetterOctave) -> LetterOctave {
+    fn mul(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() * rhs.to_step()).to_letter_octave()
     }
 }
 
 impl Div<LetterOctave, LetterOctave> for LetterOctave {
     #[inline]
-    fn div(&self, rhs: &LetterOctave) -> LetterOctave {
+    fn div(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() / rhs.to_step()).to_letter_octave()
     }
 }
 
 impl Rem<LetterOctave, LetterOctave> for LetterOctave {
     #[inline]
-    fn rem(&self, rhs: &LetterOctave) -> LetterOctave {
+    fn rem(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() % rhs.to_step()).to_letter_octave()
     }
 }
