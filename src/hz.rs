@@ -1,72 +1,115 @@
 
 use super::{
+    calc,
+    DEFAULT_SCALE_WEIGHT,
     LetterOctave,
-    ToLetterOctave,
+    Letter,
+    Octave,
     Perc,
-    ToPerc,
     ScaledPerc,
     ScaleWeight,
-    ToScaledPerc,
     Step,
-    ToStep,
     letter_octave_from_hz,
     perc_from_hz,
     scaled_perc_from_hz,
     step_from_hz,
 };
 
-pub const MAX: f32 = 20_000.0;
-pub const MIN: f32 = 20.0;
+pub const MAX: calc::Hz = 20_000.0;
+pub const MIN: calc::Hz = 20.0;
 
 /// Pitch representation in the form of a frequency (hz).
 #[deriving(Show, Copy, Clone, Encodable, Decodable)]
-pub struct Hz(pub f32);
+pub struct Hz(pub calc::Hz);
 
-/// For types that can be represented in hz.
-pub trait ToHz {
-    /// Return the current type in the form of Hz.
-    fn to_hz(&self) -> Hz;
-    /// Return the value in hz.
-    #[inline]
-    fn hz(&self) -> f32 { let Hz(hz) = self.to_hz(); hz }
-}
+impl Hz {
 
-impl ToHz for Hz {
+    /// Return the unit value of the Hz struct.
     #[inline]
-    fn to_hz(&self) -> Hz { *self }
-}
-
-impl ToLetterOctave for Hz {
-    #[inline]
-    fn to_letter_octave(&self) -> LetterOctave {
+    pub fn hz(&self) -> calc::Hz {
         let Hz(hz) = *self;
-        let (letter, octave) = letter_octave_from_hz(hz);
+        hz
+    }
+
+    /// Convert to (Letter, Octave) tuple.
+    #[inline]
+    pub fn letter_octave(&self) -> (Letter, Octave) {
+        let Hz(hz) = *self;
+        letter_octave_from_hz(hz)
+    }
+
+    /// Convert to Letter.
+    #[inline]
+    pub fn letter(&self) -> Letter {
+        let (letter, _) = self.letter_octave();
+        letter
+    }
+
+    /// Convert to Octave.
+    #[inline]
+    pub fn octave(&self) -> Octave {
+        let (_, octave) = self.letter_octave();
+        octave
+    }
+
+    /// Convert to a LetterOctave struct with the same pitch.
+    #[inline]
+    pub fn to_letter_octave(&self) -> LetterOctave {
+        let (letter, octave) = self.letter_octave();
         LetterOctave(letter, octave)
     }
-}
 
-impl ToPerc for Hz {
+    /// Convert to the unit value of a Perc struct.
     #[inline]
-    fn to_perc(&self) -> Perc {
+    pub fn perc(&self) -> calc::Perc {
         let Hz(hz) = *self;
-        Perc(perc_from_hz(hz))
+        perc_from_hz(hz)
     }
-}
 
-impl ToScaledPerc for Hz {
+    /// Convert to a percentage of the human hearing range.
     #[inline]
-    fn to_scaled_perc_with_weight(&self, weight: ScaleWeight) -> ScaledPerc {
-        let Hz(hz) = *self;
-        ScaledPerc(scaled_perc_from_hz(hz, weight), weight)
+    pub fn to_perc(&self) -> Perc {
+        Perc(self.perc())
     }
-}
 
-impl ToStep for Hz {
+    /// Convert to a scaled percentage of the human hearing range with a given weight.
     #[inline]
-    fn to_step(&self) -> Step {
+    pub fn scaled_perc_with_weight(&self, weight: ScaleWeight) -> calc::Perc {
         let Hz(hz) = *self;
-        Step(step_from_hz(hz))
+        scaled_perc_from_hz(hz, weight)
     }
+
+    /// Convert to a scaled percentage of the human hearing range.
+    #[inline]
+    pub fn scaled_perc(&self) -> calc::Perc {
+        self.scaled_perc_with_weight(DEFAULT_SCALE_WEIGHT)
+    }
+
+    /// Convert to a scaled percentage of the human hearing range with a given weight.
+    #[inline]
+    pub fn to_scaled_perc_with_weight(&self, weight: ScaleWeight) -> ScaledPerc {
+        ScaledPerc(self.scaled_perc_with_weight(weight), weight)
+    }
+
+    /// Convert to a scaled percentage of the human hearing range.
+    #[inline]
+    pub fn to_scaled_perc(&self) -> ScaledPerc {
+        self.to_scaled_perc_with_weight(DEFAULT_SCALE_WEIGHT)
+    }
+
+    /// Convert to the unit value of a Step.
+    #[inline]
+    pub fn step(&self) -> calc::Step {
+        let Hz(hz) = *self;
+        step_from_hz(hz)
+    }
+
+    /// Convert to a floating point MIDI-esque Step.
+    #[inline]
+    pub fn to_step(&self) -> Step {
+        Step(self.step())
+    }
+
 }
 
 impl Add<Hz, Hz> for Hz {

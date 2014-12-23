@@ -10,9 +10,6 @@ use pitch_calc::{
     LetterOctave,
     ScaledPerc,
     Step,
-    ToHz,
-    ToLetterOctave,
-    ToPerc,
 };
 
 fn main() {
