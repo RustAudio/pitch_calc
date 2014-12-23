@@ -145,7 +145,7 @@ impl Rem<ScaledPerc, ScaledPerc> for ScaledPerc {
 
 impl Neg<ScaledPerc> for ScaledPerc {
     #[inline]
-    fn neg(&self) -> ScaledPerc {
+    fn neg(self) -> ScaledPerc {
         ScaledPerc(-self.scaled_perc(), self.scale_weight())
     }
 }

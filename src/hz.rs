@@ -149,7 +149,7 @@ impl Rem<Hz, Hz> for Hz {
 
 impl Neg<Hz> for Hz {
     #[inline]
-    fn neg(&self) -> Hz {
+    fn neg(self) -> Hz {
         Hz(-self.hz())
     }
 }

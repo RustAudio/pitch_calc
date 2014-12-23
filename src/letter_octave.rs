@@ -146,7 +146,7 @@ impl Rem<LetterOctave, LetterOctave> for LetterOctave {
 
 impl Neg<LetterOctave> for LetterOctave {
     #[inline]
-    fn neg(&self) -> LetterOctave {
+    fn neg(self) -> LetterOctave {
         (-self.to_step()).to_letter_octave()
     }
 }

@@ -140,7 +140,7 @@ impl Rem<Step, Step> for Step {
 
 impl Neg<Step> for Step {
     #[inline]
-    fn neg(&self) -> Step {
+    fn neg(self) -> Step {
         Step(-self.step())
     }
 }
