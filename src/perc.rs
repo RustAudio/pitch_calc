@@ -140,7 +140,7 @@ impl Rem<Perc, Perc> for Perc {
 
 impl Neg<Perc> for Perc {
     #[inline]
-    fn neg(&self) -> Perc {
+    fn neg(self) -> Perc {
         Perc(-self.perc())
     }
 }
