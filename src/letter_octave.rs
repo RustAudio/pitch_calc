@@ -1,15 +1,13 @@
 
 use super::{
+    calc,
+    DEFAULT_SCALE_WEIGHT,
     Letter,
     Hz,
-    ToHz,
     Perc,
-    ToPerc,
     ScaledPerc,
     ScaleWeight,
-    ToScaledPerc,
     Step,
-    ToStep,
     hz_from_letter_octave,
     perc_from_letter_octave,
     scaled_perc_from_letter_octave,
@@ -22,64 +20,93 @@ pub type Octave = i32;
 #[deriving(Show, Copy, Clone, Encodable, Decodable)]
 pub struct LetterOctave(pub Letter, pub Octave);
 
-/// For types that can be represented as a musical Letter and an Octave.
-pub trait ToLetterOctave {
-    /// Return the current type in the form of LetterOctave.
-    fn to_letter_octave(&self) -> LetterOctave;
+impl LetterOctave {
+
     /// Return the value as (Letter, Octave).
     #[inline]
-    fn letter_octave(&self) -> (Letter, Octave) {
-        let LetterOctave(letter, octave) = self.to_letter_octave();
+    pub fn letter_octave(&self) -> (Letter, Octave) {
+        let LetterOctave(letter, octave) = *self;
         (letter, octave)
     }
+
     /// Return just the Letter.
     #[inline]
-    fn letter(&self) -> Letter {
-        let LetterOctave(letter, _) = self.to_letter_octave();
+    pub fn letter(&self) -> Letter {
+        let LetterOctave(letter, _) = *self;
         letter
     }
+
     /// Return just the octave.
-    fn octave(&self) -> Octave {
-        let LetterOctave(_, octave) = self.to_letter_octave();
+    #[inline]
+    pub fn octave(&self) -> Octave {
+        let LetterOctave(_, octave) = *self;
         octave
     }
-}
 
-impl ToHz for LetterOctave {
+    /// Convert to the unit value of Hz with the equivalent pitch.
     #[inline]
-    fn to_hz(&self) -> Hz {
+    pub fn hz(&self) -> calc::Hz {
         let LetterOctave(letter, octave) = *self;
-        Hz(hz_from_letter_octave(letter, octave))
+        hz_from_letter_octave(letter, octave)
     }
-}
 
-impl ToLetterOctave for LetterOctave {
+    /// Convert to a Hz with the equivalent pitch.
     #[inline]
-    fn to_letter_octave(&self) -> LetterOctave { *self }
-}
+    pub fn to_hz(&self) -> Hz {
+        Hz(self.hz())
+    }
 
-impl ToPerc for LetterOctave {
+    /// Convert to the unit value of a Perc.
     #[inline]
-    fn to_perc(&self) -> Perc {
+    pub fn perc(&self) -> calc::Perc {
         let LetterOctave(letter, octave) = *self;
-        Perc(perc_from_letter_octave(letter, octave))
+        perc_from_letter_octave(letter, octave)
     }
-}
 
-impl ToScaledPerc for LetterOctave {
+    /// Convert to a percentage of the human hearing range.
     #[inline]
-    fn to_scaled_perc_with_weight(&self, weight: ScaleWeight) -> ScaledPerc {
-        let LetterOctave(letter, octave) = *self;
-        ScaledPerc(scaled_perc_from_letter_octave(letter, octave, weight), weight)
+    pub fn to_perc(&self) -> Perc {
+        Perc(self.perc())
     }
-}
 
-impl ToStep for LetterOctave {
+    /// Convert to a scaled percentage of the human hearing range with a given weight.
     #[inline]
-    fn to_step(&self) -> Step {
+    pub fn scaled_perc_with_weight(&self, weight: ScaleWeight) -> calc::Perc {
         let LetterOctave(letter, octave) = *self;
-        Step(step_from_letter_octave(letter, octave))
+        scaled_perc_from_letter_octave(letter, octave, weight)
     }
+
+    /// Convert to a scaled percentage of the human hearing range.
+    #[inline]
+    pub fn scaled_perc(&self) -> calc::Perc {
+        self.scaled_perc_with_weight(DEFAULT_SCALE_WEIGHT)
+    }
+
+    /// Convert to a scaled percentage of the human hearing range with a given weight.
+    #[inline]
+    pub fn to_scaled_perc_with_weight(&self, weight: ScaleWeight) -> ScaledPerc {
+        ScaledPerc(self.scaled_perc_with_weight(weight), weight)
+    }
+
+    /// Convert to a scaled percentage of the human hearing range.
+    #[inline]
+    pub fn to_scaled_perc(&self) -> ScaledPerc {
+        self.to_scaled_perc_with_weight(DEFAULT_SCALE_WEIGHT)
+    }
+
+    /// Convert to the unit value of a Step.
+    #[inline]
+    pub fn step(&self) -> calc::Step {
+        let LetterOctave(letter, octave) = *self;
+        step_from_letter_octave(letter, octave)
+    }
+
+    /// Convert to a floating point MIDI-esque Step.
+    #[inline]
+    pub fn to_step(&self) -> Step {
+        Step(self.step())
+    }
+
 }
 
 impl Add<LetterOctave, LetterOctave> for LetterOctave {

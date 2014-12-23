@@ -5,8 +5,6 @@
 //!  Created by Mitchell Nordine at 11:26PM on November 02, 2014.
 //!
 
-#![feature(macro_rules)]
-
 extern crate serialize;
 
 pub use self::calc::{
@@ -39,27 +37,17 @@ pub use self::letter::{
 pub use self::letter_octave::{
     Octave,
     LetterOctave,
-    ToLetterOctave,
 };
-pub use self::hz::{
-    Hz,
-    ToHz
-};
+pub use self::hz::Hz;
 pub use self::hz::MAX as MAX_HZ;
 pub use self::hz::MIN as MIN_HZ;
-pub use self::perc::{
-    Perc,
-    ToPerc,
-};
+pub use self::perc::Perc;
 pub use self::scaled_perc::{
+    DEFAULT_SCALE_WEIGHT,
     ScaledPerc,
     ScaleWeight,
-    ToScaledPerc,
 };
-pub use self::step::{
-    Step,
-    ToStep,
-};
+pub use self::step::Step;
 
 pub mod calc;
 pub mod letter;
@@ -69,55 +57,4 @@ pub mod perc;
 pub mod scaled_perc;
 pub mod step;
 pub mod utils;
-
-/// To be implemented for types that can convert between different Pitch units.
-pub trait Pitch: ToHz + ToLetterOctave + ToPerc + ToScaledPerc + ToStep {}
-impl Pitch for Hz {}
-impl Pitch for LetterOctave {}
-impl Pitch for Perc {}
-impl Pitch for ScaledPerc {}
-impl Pitch for Step {}
-
-#[macro_export]
-/// A macro to simplify implementation of the Pitch trait.
-macro_rules! impl_pitch(
-    ($P:ty, $($pitch:ident).*) => (
-        impl ::pitch::Pitch for $P { }
-
-        impl ::pitch::ToHz for $P {
-            #[inline]
-            fn to_hz(&self) -> ::pitch::Hz {
-                self$(.$pitch)*.to_hz()
-            }
-        }
-
-        impl ::pitch::ToLetterOctave for $P {
-            #[inline]
-            fn to_letter_octave(&self) -> ::pitch::LetterOctave {
-                self$(.$pitch)*.to_letter_octave()
-            }
-        }
-
-        impl ::pitch::ToPerc for $P {
-            #[inline]
-            fn to_perc(&self) -> ::pitch::Perc {
-                self$(.$pitch)*.to_perc()
-            }
-        }
-
-        impl ::pitch::ToScaledPerc for $P {
-            #[inline]
-            fn to_scaled_perc_with_weight(&self, weight: ::pitch::ScaleWeight) -> ::pitch::ScaledPerc {
-                self$(.$pitch)*.to_scaled_perc_with_weight(weight)
-            }
-        }
-
-        impl ::pitch::ToStep for $P {
-            #[inline]
-            fn to_step(&self) -> ::pitch::Step {
-                self$(.$pitch)*.to_step()
-            }
-        }
-    );
-)
 

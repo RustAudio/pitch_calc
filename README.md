@@ -3,7 +3,7 @@ pitch_calc
 
 A library for musical pitch conversions!
 
-`pitch_calc` provides functions and traits for converting between frequency, midi-step and letter-octave.
+`pitch_calc` provides functions and methods for converting between frequency, midi-step and letter-octave.
 
 It looks like this.
 
