@@ -19,7 +19,7 @@ pub const MAX: calc::Hz = 20_000.0;
 pub const MIN: calc::Hz = 20.0;
 
 /// Pitch representation in the form of a frequency (hz).
-#[deriving(Show, Copy, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct Hz(pub calc::Hz);
 
 impl Hz {

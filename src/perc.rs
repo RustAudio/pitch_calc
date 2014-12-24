@@ -16,7 +16,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a percentage between the min and max hz.
-#[deriving(Show, Copy, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct Perc(pub calc::Perc);
 
 impl Perc {

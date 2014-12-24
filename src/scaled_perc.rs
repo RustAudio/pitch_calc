@@ -17,7 +17,7 @@ pub type ScaleWeight = calc::Weight;
 pub const DEFAULT_SCALE_WEIGHT: ScaleWeight = 4.0;
 
 /// Pitch representation in the form of a scaled percentage between the min and max hz.
-#[deriving(Show, Copy, Clone, Encodable, Decodable)]
+#[deriving(Show, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct ScaledPerc(pub calc::Perc, pub ScaleWeight);
 
 impl ScaledPerc {
