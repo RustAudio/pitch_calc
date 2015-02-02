@@ -1,4 +1,6 @@
 
+use std::cmp::Ordering;
+use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
     calc,
     DEFAULT_SCALE_WEIGHT,
@@ -17,7 +19,7 @@ use super::{
 pub type Octave = i32;
 
 /// Pitch representation in the form of a frequency (hz).
-#[deriving(Show, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct LetterOctave(pub Letter, pub Octave);
 
 impl LetterOctave {
@@ -109,42 +111,48 @@ impl LetterOctave {
 
 }
 
-impl Add<LetterOctave, LetterOctave> for LetterOctave {
+impl Add for LetterOctave {
+    type Output = LetterOctave;
     #[inline]
     fn add(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() + rhs.to_step()).to_letter_octave()
     }
 }
 
-impl Sub<LetterOctave, LetterOctave> for LetterOctave {
+impl Sub for LetterOctave {
+    type Output = LetterOctave;
     #[inline]
     fn sub(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() - rhs.to_step()).to_letter_octave()
     }
 }
 
-impl Mul<LetterOctave, LetterOctave> for LetterOctave {
+impl Mul for LetterOctave {
+    type Output = LetterOctave;
     #[inline]
     fn mul(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() * rhs.to_step()).to_letter_octave()
     }
 }
 
-impl Div<LetterOctave, LetterOctave> for LetterOctave {
+impl Div for LetterOctave {
+    type Output = LetterOctave;
     #[inline]
     fn div(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() / rhs.to_step()).to_letter_octave()
     }
 }
 
-impl Rem<LetterOctave, LetterOctave> for LetterOctave {
+impl Rem for LetterOctave {
+    type Output = LetterOctave;
     #[inline]
     fn rem(self, rhs: LetterOctave) -> LetterOctave {
         (self.to_step() % rhs.to_step()).to_letter_octave()
     }
 }
 
-impl Neg<LetterOctave> for LetterOctave {
+impl Neg for LetterOctave {
+    type Output = LetterOctave;
     #[inline]
     fn neg(self) -> LetterOctave {
         (-self.to_step()).to_letter_octave()
@@ -168,7 +176,7 @@ impl PartialOrd for LetterOctave {
         let LetterOctave(letter, octave) = *self;
         let LetterOctave(other_letter, other_octave) = *other;
         match octave.partial_cmp(&other_octave) {
-            Some(Equal) => letter.partial_cmp(&other_letter),
+            Some(Ordering::Equal) => letter.partial_cmp(&other_letter),
             ordering => ordering,
         }
     }

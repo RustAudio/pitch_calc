@@ -1,4 +1,6 @@
 
+use std::cmp::Ordering;
+use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
     calc,
     Hz,
@@ -17,7 +19,7 @@ pub type ScaleWeight = calc::Weight;
 pub const DEFAULT_SCALE_WEIGHT: ScaleWeight = 4.0;
 
 /// Pitch representation in the form of a scaled percentage between the min and max hz.
-#[deriving(Show, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct ScaledPerc(pub calc::Perc, pub ScaleWeight);
 
 impl ScaledPerc {
@@ -108,42 +110,48 @@ impl ScaledPerc {
 
 }
 
-impl Add<ScaledPerc, ScaledPerc> for ScaledPerc {
+impl Add for ScaledPerc {
+    type Output = ScaledPerc;
     #[inline]
     fn add(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() + rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
-impl Sub<ScaledPerc, ScaledPerc> for ScaledPerc {
+impl Sub for ScaledPerc {
+    type Output = ScaledPerc;
     #[inline]
     fn sub(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() - rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
-impl Mul<ScaledPerc, ScaledPerc> for ScaledPerc {
+impl Mul for ScaledPerc {
+    type Output = ScaledPerc;
     #[inline]
     fn mul(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() * rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
-impl Div<ScaledPerc, ScaledPerc> for ScaledPerc {
+impl Div for ScaledPerc {
+    type Output = ScaledPerc;
     #[inline]
     fn div(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() / rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
-impl Rem<ScaledPerc, ScaledPerc> for ScaledPerc {
+impl Rem for ScaledPerc {
+    type Output = ScaledPerc;
     #[inline]
     fn rem(self, rhs: ScaledPerc) -> ScaledPerc {
         (self.to_perc() % rhs.to_perc()).to_scaled_perc_with_weight(self.scale_weight())
     }
 }
 
-impl Neg<ScaledPerc> for ScaledPerc {
+impl Neg for ScaledPerc {
+    type Output = ScaledPerc;
     #[inline]
     fn neg(self) -> ScaledPerc {
         ScaledPerc(-self.scaled_perc(), self.scale_weight())

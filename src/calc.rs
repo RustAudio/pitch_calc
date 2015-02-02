@@ -1,7 +1,9 @@
 
 use std::num::{
     Float,
+    FromPrimitive,
     SignedInt,
+    ToPrimitive,
 };
 use super::{
     Letter,
