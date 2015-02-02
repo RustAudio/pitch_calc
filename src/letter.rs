@@ -2,12 +2,12 @@
 use self::Letter::{
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 };
-use std::num::Float;
+use std::num::{Float, FromPrimitive, ToPrimitive};
 use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
 
-#[deriving(Copy, Clone, PartialEq, PartialOrd, Show, Encodable, Decodable)]
+#[derive(Copy, Clone, PartialEq, PartialOrd, Debug, RustcEncodable, RustcDecodable)]
 pub enum Letter {
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 }
@@ -86,7 +86,7 @@ impl ToPrimitive for Letter {
 
 impl ::std::rand::Rand for Letter {
     fn rand<R: ::std::rand::Rng>(rng: &mut R) -> Letter {
-        rng.gen_range(0u, 12u).to_letter()
+        rng.gen_range(0us, 12us).to_letter()
     }
 }
 

@@ -1,4 +1,6 @@
 
+use std::cmp::Ordering;
+use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
     calc,
     DEFAULT_SCALE_WEIGHT,
@@ -16,7 +18,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a percentage between the min and max hz.
-#[deriving(Show, Copy, Clone, Encodable, Decodable)]
+#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct Perc(pub calc::Perc);
 
 impl Perc {
@@ -103,42 +105,48 @@ impl Perc {
 
 }
 
-impl Add<Perc, Perc> for Perc {
+impl Add for Perc {
+    type Output = Perc;
     #[inline]
     fn add(self, rhs: Perc) -> Perc {
         Perc(self.perc() + rhs.perc())
     }
 }
 
-impl Sub<Perc, Perc> for Perc {
+impl Sub for Perc {
+    type Output = Perc;
     #[inline]
     fn sub(self, rhs: Perc) -> Perc {
         Perc(self.perc() - rhs.perc())
     }
 }
 
-impl Mul<Perc, Perc> for Perc {
+impl Mul for Perc {
+    type Output = Perc;
     #[inline]
     fn mul(self, rhs: Perc) -> Perc {
         Perc(self.perc() * rhs.perc())
     }
 }
 
-impl Div<Perc, Perc> for Perc {
+impl Div for Perc {
+    type Output = Perc;
     #[inline]
     fn div(self, rhs: Perc) -> Perc {
         Perc(self.perc() / rhs.perc())
     }
 }
 
-impl Rem<Perc, Perc> for Perc {
+impl Rem for Perc {
+    type Output = Perc;
     #[inline]
     fn rem(self, rhs: Perc) -> Perc {
         Perc(self.perc() % rhs.perc())
     }
 }
 
-impl Neg<Perc> for Perc {
+impl Neg for Perc {
+    type Output = Perc;
     #[inline]
     fn neg(self) -> Perc {
         Perc(-self.perc())

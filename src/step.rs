@@ -1,4 +1,6 @@
 
+use std::cmp::Ordering;
+use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
     calc,
     DEFAULT_SCALE_WEIGHT,
@@ -16,7 +18,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a MIDI-esque Step.
-#[deriving(Show, Copy, Clone, Encodable, Decodable)]
+#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct Step(pub calc::Step);
 
 impl Step {
@@ -103,42 +105,48 @@ impl Step {
 
 }
 
-impl Add<Step, Step> for Step {
+impl Add for Step {
+    type Output = Step;
     #[inline]
     fn add(self, rhs: Step) -> Step {
         Step(self.step() + rhs.step())
     }
 }
 
-impl Sub<Step, Step> for Step {
+impl Sub for Step {
+    type Output = Step;
     #[inline]
     fn sub(self, rhs: Step) -> Step {
         Step(self.step() - rhs.step())
     }
 }
 
-impl Mul<Step, Step> for Step {
+impl Mul for Step {
+    type Output = Step;
     #[inline]
     fn mul(self, rhs: Step) -> Step {
         Step(self.step() * rhs.step())
     }
 }
 
-impl Div<Step, Step> for Step {
+impl Div for Step {
+    type Output = Step;
     #[inline]
     fn div(self, rhs: Step) -> Step {
         Step(self.step() / rhs.step())
     }
 }
 
-impl Rem<Step, Step> for Step {
+impl Rem for Step {
+    type Output = Step;
     #[inline]
     fn rem(self, rhs: Step) -> Step {
         Step(self.step() % rhs.step())
     }
 }
 
-impl Neg<Step> for Step {
+impl Neg for Step {
+    type Output = Step;
     #[inline]
     fn neg(self) -> Step {
         Step(-self.step())

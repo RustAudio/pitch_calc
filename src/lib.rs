@@ -5,7 +5,9 @@
 //!  Created by Mitchell Nordine at 11:26PM on November 02, 2014.
 //!
 
-extern crate serialize;
+#![feature(core, rand)]
+
+extern crate "rustc-serialize" as rustc_serialize;
 
 pub use self::calc::{
     difference_in_semitones,

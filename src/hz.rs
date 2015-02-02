@@ -1,4 +1,6 @@
 
+use std::cmp::Ordering;
+use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
     calc,
     DEFAULT_SCALE_WEIGHT,
@@ -19,7 +21,7 @@ pub const MAX: calc::Hz = 20_000.0;
 pub const MIN: calc::Hz = 20.0;
 
 /// Pitch representation in the form of a frequency (hz).
-#[deriving(Show, Copy, Clone, Encodable, Decodable)]
+#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
 pub struct Hz(pub calc::Hz);
 
 impl Hz {
@@ -112,42 +114,48 @@ impl Hz {
 
 }
 
-impl Add<Hz, Hz> for Hz {
+impl Add for Hz {
+    type Output = Hz;
     #[inline]
     fn add(self, rhs: Hz) -> Hz {
         Hz(self.hz() + rhs.hz())
     }
 }
 
-impl Sub<Hz, Hz> for Hz {
+impl Sub for Hz {
+    type Output = Hz;
     #[inline]
     fn sub(self, rhs: Hz) -> Hz {
         Hz(self.hz() - rhs.hz())
     }
 }
 
-impl Mul<Hz, Hz> for Hz {
+impl Mul for Hz {
+    type Output = Hz;
     #[inline]
     fn mul(self, rhs: Hz) -> Hz {
         Hz(self.hz() * rhs.hz())
     }
 }
 
-impl Div<Hz, Hz> for Hz {
+impl Div for Hz {
+    type Output = Hz;
     #[inline]
     fn div(self, rhs: Hz) -> Hz {
         Hz(self.hz() / rhs.hz())
     }
 }
 
-impl Rem<Hz, Hz> for Hz {
+impl Rem for Hz {
+    type Output = Hz;
     #[inline]
     fn rem(self, rhs: Hz) -> Hz {
         Hz(self.hz() % rhs.hz())
     }
 }
 
-impl Neg<Hz> for Hz {
+impl Neg for Hz {
+    type Output = Hz;
     #[inline]
     fn neg(self) -> Hz {
         Hz(-self.hz())

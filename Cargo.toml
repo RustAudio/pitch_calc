@@ -2,8 +2,12 @@
 
 name = "pitch_calc"
 description = "A library for musical pitch conversions! Provides functions and methods for converting between frequency, midi-step and letter-octave."
-version = "0.8.0"
+version = "0.8.2"
 authors = ["mitchmindtree <mitchell.nordine@gmail.com>"]
 readme = "README.md"
 keywords = ["pitch", "dsp", "audio", "music", "conversion"]
 license = "Apache-2.0/MIT"
+repository = "https://github.com/RustAudio/pitch_calc"
+
+[dependencies]
+rustc-serialize = "0.2.10"
