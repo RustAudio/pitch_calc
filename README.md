@@ -1,5 +1,4 @@
-pitch_calc
-==========
+# pitch_calc [![Build Status](https://travis-ci.org/RustAudio/pitch_calc.svg?branch=master)](https://travis-ci.org/RustAudio/pitch_calc)
 
 A library for musical pitch conversions!
 
