@@ -5,8 +5,9 @@
 //!  Created by Mitchell Nordine at 11:26PM on November 02, 2014.
 //!
 
-#![feature(core, rand)]
+#![feature(core)]
 
+extern crate rand;
 extern crate "rustc-serialize" as rustc_serialize;
 
 pub use self::calc::{
