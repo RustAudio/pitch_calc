@@ -84,8 +84,8 @@ impl ToPrimitive for Letter {
     }
 }
 
-impl ::std::rand::Rand for Letter {
-    fn rand<R: ::std::rand::Rng>(rng: &mut R) -> Letter {
+impl ::rand::Rand for Letter {
+    fn rand<R: ::rand::Rng>(rng: &mut R) -> Letter {
         rng.gen_range(0us, 12us).to_letter()
     }
 }
