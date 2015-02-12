@@ -58,6 +58,13 @@ fn main() {
         println!("{:?}% == {:?}hz is closest to {:?}", perc.perc(), perc.hz(), perc.letter_octave());
     }
 
+    // "Mels" can be used to represent an evenly distributed range of our pitch perception.
+    println!("20hz in Mels == {:?}", Hz(20.0).mel());
+    println!("440hz in Mels == {:?}", Hz(440.0).mel());
+    println!("2_000hz in Mels == {:?}", Hz(2_000.0).mel());
+    println!("10_000hz in Mels == {:?}", Hz(10_000.0).mel());
+    println!("20_000hz in Mels == {:?}", Hz(20_000.0).mel());
+
     println!("Great success!");
 
 }

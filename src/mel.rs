@@ -7,45 +7,48 @@ use super::{
     Hz,
     LetterOctave,
     Letter,
-    Mel,
     Octave,
+    Perc,
     ScaledPerc,
     ScaleWeight,
     Step,
-    hz_from_perc,
-    letter_octave_from_perc,
-    mel_from_perc,
-    scaled_perc_from_perc,
-    step_from_perc,
+    hz_from_mel,
+    letter_octave_from_mel,
+    perc_from_mel,
+    scaled_perc_from_mel,
+    step_from_mel,
 };
 
-/// Pitch representation in the form of a percentage between the min and max hz.
+/// Mel value representation
+///     - based on the Mel scale coined by Stevens, Volkmann and Newman in 1937.
 #[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
-pub struct Perc(pub calc::Perc);
+pub struct Mel(pub calc::Mel);
 
-impl Perc {
+impl Mel {
 
-    /// Return the value as a percentage.
+    /// Return the unit value of the Mel struct.
     #[inline]
-    pub fn perc(&self) -> calc::Perc { let Perc(perc) = *self; perc }
-
-    /// Convert to unit value of the equivalent frequency in Hz.
-    #[inline]
-    pub fn hz(&self) -> calc::Hz {
-        let Perc(perc) = *self;
-        hz_from_perc(perc)
+    pub fn mel(&self) -> calc::Mel {
+        let Mel(mel) = *self;
+        mel
     }
 
-    /// Convert to the equivalent frequency in Hz.
+    /// Convert to hz.
+    #[inline]
+    pub fn hz(&self) -> calc::Hz {
+        hz_from_mel(self.mel())
+    }
+
+    /// Convert to a Hz struct.
     #[inline]
     pub fn to_hz(&self) -> Hz {
         Hz(self.hz())
     }
 
-    /// Convert to a (Letter, Octave).
+    /// Convert to (Letter, Octave) tuple.
     #[inline]
     pub fn letter_octave(&self) -> (Letter, Octave) {
-        letter_octave_from_perc(self.perc())
+        letter_octave_from_mel(self.mel())
     }
 
     /// Convert to Letter.
@@ -62,29 +65,29 @@ impl Perc {
         octave
     }
 
-    /// Convert to LetterOctave.
+    /// Convert to LetterOctave struct with the closest pitch.
     #[inline]
     pub fn to_letter_octave(&self) -> LetterOctave {
         let (letter, octave) = self.letter_octave();
         LetterOctave(letter, octave)
     }
 
-    /// Convert to the unit value of a Mel.
+    /// Convert to a percentage of the human hearing range.
     #[inline]
-    pub fn mel(&self) -> calc::Mel {
-        mel_from_perc(self.perc())
+    pub fn perc(&self) -> calc::Perc {
+        perc_from_mel(self.mel())
     }
 
-    /// Convert to a Mel struct.
+    /// Convert to a Perc struct.
     #[inline]
-    pub fn to_mel(&self) -> Mel {
-        Mel(self.mel())
+    pub fn to_perc(&self) -> Perc {
+        Perc(self.perc())
     }
 
     /// Convert to a scaled percentage of the human hearing range with a given weight.
     #[inline]
     pub fn scaled_perc_with_weight(&self, weight: ScaleWeight) -> calc::Perc {
-        scaled_perc_from_perc(self.perc(), weight)
+        scaled_perc_from_mel(self.mel(), weight)
     }
 
     /// Convert to a scaled percentage of the human hearing range.
@@ -108,10 +111,10 @@ impl Perc {
     /// Convert to the unit value of a Step.
     #[inline]
     pub fn step(&self) -> calc::Step {
-        step_from_perc(self.perc())
+        step_from_mel(self.mel())
     }
 
-    /// Convert to a floating point MIDI-esque Step.
+    /// Convert to a Step struct.
     #[inline]
     pub fn to_step(&self) -> Step {
         Step(self.step())
@@ -119,73 +122,73 @@ impl Perc {
 
 }
 
-impl Add for Perc {
-    type Output = Perc;
+impl Add for Mel {
+    type Output = Mel;
     #[inline]
-    fn add(self, rhs: Perc) -> Perc {
-        Perc(self.perc() + rhs.perc())
+    fn add(self, rhs: Mel) -> Mel {
+        Mel(self.mel() + rhs.mel())
     }
 }
 
-impl Sub for Perc {
-    type Output = Perc;
+impl Sub for Mel {
+    type Output = Mel;
     #[inline]
-    fn sub(self, rhs: Perc) -> Perc {
-        Perc(self.perc() - rhs.perc())
+    fn sub(self, rhs: Mel) -> Mel {
+        Mel(self.mel() - rhs.mel())
     }
 }
 
-impl Mul for Perc {
-    type Output = Perc;
+impl Mul for Mel {
+    type Output = Mel;
     #[inline]
-    fn mul(self, rhs: Perc) -> Perc {
-        Perc(self.perc() * rhs.perc())
+    fn mul(self, rhs: Mel) -> Mel {
+        Mel(self.mel() * rhs.mel())
     }
 }
 
-impl Div for Perc {
-    type Output = Perc;
+impl Div for Mel {
+    type Output = Mel;
     #[inline]
-    fn div(self, rhs: Perc) -> Perc {
-        Perc(self.perc() / rhs.perc())
+    fn div(self, rhs: Mel) -> Mel {
+        Mel(self.mel() / rhs.mel())
     }
 }
 
-impl Rem for Perc {
-    type Output = Perc;
+impl Rem for Mel {
+    type Output = Mel;
     #[inline]
-    fn rem(self, rhs: Perc) -> Perc {
-        Perc(self.perc() % rhs.perc())
+    fn rem(self, rhs: Mel) -> Mel {
+        Mel(self.mel() % rhs.mel())
     }
 }
 
-impl Neg for Perc {
-    type Output = Perc;
+impl Neg for Mel {
+    type Output = Mel;
     #[inline]
-    fn neg(self) -> Perc {
-        Perc(-self.perc())
+    fn neg(self) -> Mel {
+        Mel(-self.mel())
     }
 }
 
-impl PartialEq for Perc {
+impl PartialEq for Mel {
     #[inline]
-    fn eq(&self, other: &Perc) -> bool {
-        self.perc() == other.perc()
+    fn eq(&self, other: &Mel) -> bool {
+        self.mel() == other.mel()
     }
 }
 
-impl Eq for Perc {}
+impl Eq for Mel {}
 
-impl PartialOrd for Perc {
+impl PartialOrd for Mel {
     #[inline]
-    fn partial_cmp(&self, other: &Perc) -> Option<Ordering> {
-        self.perc().partial_cmp(&other.perc())
+    fn partial_cmp(&self, other: &Mel) -> Option<Ordering> {
+        self.mel().partial_cmp(&other.mel())
     }
 }
 
-impl Ord for Perc {
+impl Ord for Mel {
     #[inline]
-    fn cmp(&self, other: &Perc) -> Ordering {
+    fn cmp(&self, other: &Mel) -> Ordering {
         self.partial_cmp(other).unwrap()
     }
 }

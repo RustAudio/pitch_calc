@@ -22,6 +22,7 @@ const TUNING_PITCH_A4: f32 = 57.0;
 const PITCH_INDEX: f32 = 440.0;
 
 pub type Hz = f32;
+pub type Mel = f32;
 pub type Perc = f64;
 pub type Semitones = i32;
 pub type Step = f32;
@@ -39,6 +40,12 @@ pub fn difference_in_semitones(letter_a: Letter, letter_b: Letter) -> Semitones 
 #[inline]
 pub fn hz_from_letter_octave(letter: Letter, octave: Octave) -> Hz {
     hz_from_step(step_from_letter_octave(letter, octave))
+}
+
+/// Calculate hz from mel.
+#[inline]
+pub fn hz_from_mel(mel: Mel) -> Hz {
+    (10.0.powf(mel / 2595.0) - 1.0) * 700.0
 }
 
 /// Calculate frequency in hz from percentage.
@@ -65,6 +72,12 @@ pub fn letter_octave_from_hz(hz: Hz) -> (Letter, Octave) {
     letter_octave_from_step(step_from_hz(hz))
 }
 
+/// Calculate (Letter, Octave) from mel.
+#[inline]
+pub fn letter_octave_from_mel(mel: Mel) -> (Letter, Octave) {
+    letter_octave_from_hz(hz_from_mel(mel))
+}
+
 /// Calculate (Letter, Octave) from a frequency percentage.
 #[inline]
 pub fn letter_octave_from_perc(perc: Perc) -> (Letter, Octave) {
@@ -85,6 +98,37 @@ pub fn letter_octave_from_step(step: Step) -> (Letter, Octave) {
     (FromPrimitive::from_i32(letter_step).unwrap(), (rounded - letter_step) / 12)
 }
 
+/// Calculate mel from hz.
+/// Formula used from http://en.wikipedia.org/wiki/Mel_scale
+#[inline]
+pub fn mel_from_hz(hz: Hz) -> Mel {
+    (1.0 + hz / 700.0).log10() * 2595.0
+}
+
+/// Calculate mel from (Letter, Octave).
+#[inline]
+pub fn mel_from_letter_octave(letter: Letter, octave: Octave) -> Mel {
+    mel_from_hz(hz_from_letter_octave(letter, octave))
+}
+
+/// Calculate mel from percentage.
+#[inline]
+pub fn mel_from_perc(perc: Perc) -> Mel {
+    mel_from_hz(hz_from_perc(perc))
+}
+
+/// Calculate mel from scaled percentage.
+#[inline]
+pub fn mel_from_scaled_perc(scaled: Perc, weight: Weight) -> Mel {
+    mel_from_hz(hz_from_scaled_perc(scaled, weight))
+}
+
+/// Calculate mel from step.
+#[inline]
+pub fn mel_from_step(step: Step) -> Mel {
+    mel_from_hz(hz_from_step(step))
+}
+
 /// Calculate percentage from hz.
 #[inline]
 pub fn perc_from_hz(hz: Hz) -> Perc {
@@ -95,6 +139,12 @@ pub fn perc_from_hz(hz: Hz) -> Perc {
 #[inline]
 pub fn perc_from_letter_octave(letter: Letter, octave: Octave) -> Perc {
     perc_from_step(step_from_letter_octave(letter, octave))
+}
+
+/// Calculate percentage from mel.
+#[inline]
+pub fn perc_from_mel(mel: Mel) -> Perc {
+    perc_from_hz(hz_from_mel(mel))
 }
 
 /// Calculate percentage from scaled percentage.
@@ -115,10 +165,16 @@ pub fn scaled_perc_from_hz(hz: Hz, weight: Weight) -> Perc {
     scaled_perc_from_perc(perc_from_hz(hz), weight)
 }
 
-/// Calculate percentage from letter octave.
+/// Calculate scaled percentage from letter octave.
 #[inline]
 pub fn scaled_perc_from_letter_octave(letter: Letter, octave: Octave, weight: Weight) -> Perc {
     scaled_perc_from_step(step_from_letter_octave(letter, octave), weight)
+}
+
+/// Calculate scaled percentage from mel.
+#[inline]
+pub fn scaled_perc_from_mel(mel: Mel, weight: Weight) -> Perc {
+    scaled_perc_from_hz(hz_from_mel(mel), weight)
 }
 
 /// Calculate scaled percentage from percentage.
@@ -143,6 +199,12 @@ pub fn step_from_hz(hz: Hz) -> Step {
 #[inline]
 pub fn step_from_letter_octave(letter: Letter, octave: Octave) -> Step {
     octave as Step * 12.0 + letter.to_f32().unwrap()
+}
+
+/// Calculate the pitch `step` from mel.
+#[inline]
+pub fn step_from_mel(mel: Mel) -> Step {
+    step_from_hz(hz_from_mel(mel))
 }
 
 /// Calculate the pitch `step` from frequency precentage.

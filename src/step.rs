@@ -7,12 +7,14 @@ use super::{
     Hz,
     LetterOctave,
     Letter,
+    Mel,
     Octave,
     Perc,
     ScaledPerc,
     ScaleWeight,
     hz_from_step,
     letter_octave_from_step,
+    mel_from_step,
     perc_from_step,
     scaled_perc_from_step,
 };
@@ -65,6 +67,18 @@ impl Step {
     pub fn to_letter_octave(&self) -> LetterOctave {
         let (letter, octave) = self.letter_octave();
         LetterOctave(letter, octave)
+    }
+
+    /// Convert to a Mel unit value.
+    #[inline]
+    pub fn mel(&self) -> calc::Mel {
+        mel_from_step(self.step())
+    }
+
+    /// Convert to a Mel struct.
+    #[inline]
+    pub fn to_mel(&self) -> Mel {
+        Mel(self.mel())
     }
 
     /// Convert to the unit value of the equivalent Perc.
