@@ -17,7 +17,7 @@ use utils::modulo;
 /// Useful for conversions between Step and Hz.
 const TWELFTH_ROOT_OF_TWO: f32 = 1.059463094359;
 /// The pitch `A 4` represented in steps.
-const TUNING_PITCH_A4: f32 = 57.0;
+const TUNING_PITCH_A4: f32 = 69.0;
 /// The pitch `A 4` represented in hz.
 const PITCH_INDEX: f32 = 440.0;
 
@@ -95,7 +95,7 @@ pub fn letter_octave_from_scaled_perc(scaled: Perc, weight: Weight) -> (Letter, 
 pub fn letter_octave_from_step(step: Step) -> (Letter, Octave) {
     let rounded = step.round() as Octave;
     let letter_step = modulo(rounded, TOTAL_LETTERS as Octave);
-    (FromPrimitive::from_i32(letter_step).unwrap(), (rounded - letter_step) / 12)
+    (FromPrimitive::from_i32(letter_step).unwrap(), (rounded - letter_step) / 12 - 1)
 }
 
 /// Calculate mel from hz.
@@ -198,7 +198,7 @@ pub fn step_from_hz(hz: Hz) -> Step {
 /// Calculate the pitch `step` from (Letter, Octave).
 #[inline]
 pub fn step_from_letter_octave(letter: Letter, octave: Octave) -> Step {
-    octave as Step * 12.0 + letter.to_f32().unwrap()
+    (1 + octave) as Step * 12.0 + letter.to_f32().unwrap()
 }
 
 /// Calculate the pitch `step` from mel.

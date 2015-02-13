@@ -13,13 +13,14 @@ use pitch_calc::{
     ScaledPerc,
     Step,
 };
+use std::num::Float;
 
 fn main() {
 
     println!("");
 
     // You can convert midi-step to letter octave
-    assert!(Step(52.0).to_letter_octave() == LetterOctave(Letter::E, 4));
+    assert!(Step(64.0).to_letter_octave() == LetterOctave(Letter::E, 4));
     // Or hz to letter octave.
     assert!(Hz(220.0).letter_octave() == (Letter::A, 3));
     // Or the other way around.
@@ -65,7 +66,21 @@ fn main() {
     println!("10_000hz in Mels == {:?}", Hz(10_000.0).mel());
     println!("20_000hz in Mels == {:?}", Hz(20_000.0).mel());
 
+    // Test a big chain of conversions..
+    let a_4 = LetterOctave(Letter::A, 4)
+                .to_hz()
+                .to_perc()
+                .to_mel()
+                .to_step()
+                .to_perc()
+                .to_hz()
+                .to_step()
+                .to_letter_octave()
+                .hz().round() as i32;
+    assert!(a_4 == 440, "A4 == {:?}", a_4);
+
     println!("Great success!");
 
 }
+
 
