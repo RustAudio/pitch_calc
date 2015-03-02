@@ -86,7 +86,7 @@ impl ToPrimitive for Letter {
 
 impl ::rand::Rand for Letter {
     fn rand<R: ::rand::Rng>(rng: &mut R) -> Letter {
-        rng.gen_range(0us, 12us).to_letter()
+        rng.gen_range(0, 12).to_letter()
     }
 }
 
