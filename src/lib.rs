@@ -8,7 +8,7 @@
 #![feature(core, plugin)]
 
 extern crate rand;
-extern crate "rustc-serialize" as rustc_serialize;
+extern crate rustc_serialize;
 
 pub use self::calc::{
     difference_in_semitones,
