@@ -11,7 +11,6 @@ use pitch_calc::{
     ScaledPerc,
     Step,
 };
-use std::num::Float;
 
 fn main() {
 

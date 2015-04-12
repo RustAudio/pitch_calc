@@ -2,7 +2,7 @@
 use self::Letter::{
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 };
-use std::num::{Float, FromPrimitive, ToPrimitive};
+use num::{Float, FromPrimitive, ToPrimitive};
 use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;

@@ -5,8 +5,7 @@
 //!  Created by Mitchell Nordine at 11:26PM on November 02, 2014.
 //!
 
-#![feature(core, plugin)]
-
+extern crate num;
 extern crate rand;
 extern crate rustc_serialize;
 
