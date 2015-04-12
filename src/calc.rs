@@ -1,8 +1,7 @@
 
-use std::num::{
+use num::{
     Float,
     FromPrimitive,
-    SignedInt,
     ToPrimitive,
 };
 use super::{

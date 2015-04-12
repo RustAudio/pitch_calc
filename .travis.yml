@@ -1,10 +1,14 @@
 language: rust
 
+rust:
+    - nightly
+    - 1.0.0-beta
+
 os:
     - osx
     - linux
 
 script:
-    - cargo build -v
-    - cargo test -v
-    - cargo doc -v
+    - cargo build --verbose
+    - cargo test --verbose
+    - cargo doc --verbose
