@@ -121,5 +121,11 @@ impl<T: Int> ::std::ops::Sub<T> for Letter {
     }
 }
 
+impl ::std::ops::Add for Letter {
+    type Output = Letter;
+    fn add(self, rhs: Letter) -> Letter {
+        self + rhs.to_u8().unwrap()
+    }
+}
 
 
