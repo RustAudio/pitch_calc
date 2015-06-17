@@ -3,6 +3,7 @@ use self::Letter::{
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 };
 use num::{Float, FromPrimitive, ToPrimitive};
+use num::PrimInt as Int;
 use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
@@ -101,4 +102,24 @@ impl<T: ToPrimitive> ToLetter for T {
         FromPrimitive::from_f64(self.to_f64().unwrap().round()).unwrap()
     }
 }
+
+
+impl<T: Int> ::std::ops::Add<T> for Letter {
+    type Output = Letter;
+    fn add(self, rhs: T) -> Letter {
+        let twelve = T::one() + T::one() + T::one() + T::one() + T::one() + T::one()
+                   + T::one() + T::one() + T::one() + T::one() + T::one() + T::one();
+        let semitones = modulo(rhs, twelve).to_u8().unwrap();
+        FromPrimitive::from_u8(modulo(self.to_u8().unwrap() + semitones, 12)).unwrap()
+    }
+}
+
+impl<T: Int> ::std::ops::Sub<T> for Letter {
+    type Output = Letter;
+    fn sub(self, rhs: T) -> Letter {
+        self + (T::zero() - rhs)
+    }
+}
+
+
 
