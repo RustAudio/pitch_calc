@@ -28,12 +28,12 @@ Usage
 
 Add the following to your Cargo.toml.
 
-```
+```toml
 [dependencies.pitch_calc]
 git = "https://github.com/RustAudio/pitch_calc"
 ```
 or
-```
+```toml
 [dependencies]
 pitch_calc = "X.X.X"
 ```
