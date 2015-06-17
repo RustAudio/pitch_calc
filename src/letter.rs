@@ -2,7 +2,8 @@
 use self::Letter::{
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 };
-use num::{Float, FromPrimitive, ToPrimitive};
+use num::{FromPrimitive, ToPrimitive};
+use num::PrimInt as Int;
 use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
@@ -96,9 +97,40 @@ pub trait ToLetter {
     fn to_letter(&self) -> Letter;
 }
 
-impl<T: ToPrimitive> ToLetter for T {
+impl<T: Int> ToLetter for T {
     fn to_letter(&self) -> Letter {
-        FromPrimitive::from_f64(self.to_f64().unwrap().round()).unwrap()
+        FromPrimitive::from_i64(self.to_i64().unwrap()).unwrap()
+    }
+}
+
+
+impl<T: Int> ::std::ops::Add<T> for Letter {
+    type Output = Letter;
+    fn add(self, rhs: T) -> Letter {
+        let semitones = modulo(rhs.to_i64().unwrap(), 12).to_i16().unwrap();
+        FromPrimitive::from_i16(modulo(self.to_i16().unwrap() + semitones, 12)).unwrap()
+    }
+}
+
+impl<T: Int> ::std::ops::Sub<T> for Letter {
+    type Output = Letter;
+    fn sub(self, rhs: T) -> Letter {
+        let semitones = modulo(rhs.to_i64().unwrap(), 12).to_i16().unwrap();
+        FromPrimitive::from_i16(modulo(self.to_i16().unwrap() - semitones, 12)).unwrap()
+    }
+}
+
+impl ::std::ops::Add for Letter {
+    type Output = Letter;
+    fn add(self, rhs: Letter) -> Letter {
+        self + rhs.to_u8().unwrap()
+    }
+}
+
+impl ::std::ops::Sub for Letter {
+    type Output = Letter;
+    fn sub(self, rhs: Letter) -> Letter {
+        self - rhs.to_i16().unwrap()
     }
 }
 
