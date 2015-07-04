@@ -15,36 +15,36 @@ pub enum Letter {
 
 impl FromPrimitive for Letter {
     fn from_i64(n: i64) -> Option<Letter> {
-        match n {
-            n if modulo(n, 12) == 0  => Some(C),
-            n if modulo(n, 12) == 1  => Some(Csh),
-            n if modulo(n, 12) == 2  => Some(D),
-            n if modulo(n, 12) == 3  => Some(Dsh),
-            n if modulo(n, 12) == 4  => Some(E),
-            n if modulo(n, 12) == 5  => Some(F),
-            n if modulo(n, 12) == 6  => Some(Fsh),
-            n if modulo(n, 12) == 7  => Some(G),
-            n if modulo(n, 12) == 8  => Some(Gsh),
-            n if modulo(n, 12) == 9  => Some(A),
-            n if modulo(n, 12) == 10 => Some(Ash),
-            n if modulo(n, 12) == 11 => Some(B),
+        match modulo(n, 12) {
+            0  => Some(C),
+            1  => Some(Csh),
+            2  => Some(D),
+            3  => Some(Dsh),
+            4  => Some(E),
+            5  => Some(F),
+            6  => Some(Fsh),
+            7  => Some(G),
+            8  => Some(Gsh),
+            9  => Some(A),
+            10 => Some(Ash),
+            11 => Some(B),
             _ => None,
         }
     }
     fn from_u64(n: u64) -> Option<Letter> {
-        match n {
-            n if modulo(n, 12) == 0  => Some(C),
-            n if modulo(n, 12) == 1  => Some(Csh),
-            n if modulo(n, 12) == 2  => Some(D),
-            n if modulo(n, 12) == 3  => Some(Dsh),
-            n if modulo(n, 12) == 4  => Some(E),
-            n if modulo(n, 12) == 5  => Some(F),
-            n if modulo(n, 12) == 6  => Some(Fsh),
-            n if modulo(n, 12) == 7  => Some(G),
-            n if modulo(n, 12) == 8  => Some(Gsh),
-            n if modulo(n, 12) == 9  => Some(A),
-            n if modulo(n, 12) == 10 => Some(Ash),
-            n if modulo(n, 12) == 11 => Some(B),
+        match modulo(n, 12) {
+            0  => Some(C),
+            1  => Some(Csh),
+            2  => Some(D),
+            3  => Some(Dsh),
+            4  => Some(E),
+            5  => Some(F),
+            6  => Some(Fsh),
+            7  => Some(G),
+            8  => Some(Gsh),
+            9  => Some(A),
+            10 => Some(Ash),
+            11 => Some(B),
             _ => None,
         }
     }
