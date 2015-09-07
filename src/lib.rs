@@ -71,4 +71,5 @@ pub mod perc;
 pub mod scaled_perc;
 pub mod step;
 pub mod utils;
+pub mod convert;
 
