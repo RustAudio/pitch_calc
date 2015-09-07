@@ -63,7 +63,7 @@ fn main() {
     println!("10_000hz in Mels == {:?}", Hz(10_000.0).mel());
     println!("20_000hz in Mels == {:?}", Hz(20_000.0).mel());
 
-    // Test a big chain of conversions..
+    // Test a big chain of conversions.
     let a_4 = LetterOctave(Letter::A, 4)
                 .to_hz()
                 .to_perc()
