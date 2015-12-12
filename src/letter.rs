@@ -4,14 +4,54 @@ use self::Letter::{
 };
 use num::{FromPrimitive, ToPrimitive};
 use num::PrimInt as Int;
+use std::cmp::Ordering;
 use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
 
-#[derive(Copy, Clone, PartialEq, PartialOrd, Debug, RustcEncodable, RustcDecodable)]
+/// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
+#[derive(Copy, Clone, Debug, RustcEncodable, RustcDecodable)]
 pub enum Letter {
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 }
+
+
+impl PartialOrd for Letter {
+    fn partial_cmp(&self, other: &Letter) -> Option<Ordering> {
+        let other_u8 = other.to_u8().unwrap();
+        self.to_u8().unwrap().partial_cmp(&other_u8)
+    }
+}
+
+impl Ord for Letter {
+    fn cmp(&self, other: &Letter) -> Ordering {
+        let other_u8 = other.to_u8().unwrap();
+        self.to_u8().unwrap().cmp(&other_u8)
+    }
+}
+
+impl PartialEq for Letter {
+    fn eq(&self, other: &Letter) -> bool {
+        self.to_u8().unwrap() == other.to_u8().unwrap()
+    }
+}
+
+impl Eq for Letter {}
+
+
+impl Letter {
+
+    /// Returns whether or not the note would be a black key on a standard piano or keyboard.
+    pub fn is_black_key(&self) -> bool {
+        use self::Letter::*;
+        match *self {
+            Csh | Db | Dsh | Eb | Fsh | Gb | Gsh | Ab | Ash | Bb => true,
+            C | D | E | F | G | A | B => false,
+        }
+    }
+
+}
+
 
 impl FromPrimitive for Letter {
     fn from_i64(n: i64) -> Option<Letter> {
