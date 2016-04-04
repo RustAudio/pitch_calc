@@ -73,3 +73,5 @@ pub mod step;
 pub mod utils;
 pub mod convert;
 
+#[cfg(feature="serde_serialization")]
+mod serde;

@@ -1,4 +1,3 @@
-
 use std::cmp::Ordering;
 use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
@@ -198,4 +197,3 @@ impl Ord for Hz {
         self.partial_cmp(other).unwrap()
     }
 }
-
