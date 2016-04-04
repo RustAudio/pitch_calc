@@ -7,7 +7,6 @@
 
 extern crate num;
 extern crate rand;
-extern crate rustc_serialize;
 
 pub use self::calc::{
     difference_in_semitones,

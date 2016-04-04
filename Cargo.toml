@@ -13,7 +13,6 @@ homepage = "https://github.com/RustAudio/pitch_calc"
 [dependencies]
 num = "0.1.28"
 rand = "0.3.12"
-rustc-serialize = "0.3.16"
 serde = { optional = true, version = "0.7.0" }
 serde_json = { optional = true, version = "0.7.0" }
 

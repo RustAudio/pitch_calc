@@ -21,7 +21,7 @@ use super::{
 
 /// Mel value representation
 ///     - based on the Mel scale coined by Stevens, Volkmann and Newman in 1937.
-#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone)]
 pub struct Mel(pub calc::Mel);
 
 impl Mel {

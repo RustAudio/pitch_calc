@@ -21,7 +21,7 @@ use super::{
 pub type Octave = i32;
 
 /// Pitch representation in the form of a frequency (hz).
-#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone)]
 pub struct LetterOctave(pub Letter, pub Octave);
 
 impl LetterOctave {

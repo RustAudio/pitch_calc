@@ -20,7 +20,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a MIDI-esque Step.
-#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone)]
 pub struct Step(pub calc::Step);
 
 impl Step {
