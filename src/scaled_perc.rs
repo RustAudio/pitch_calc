@@ -1,4 +1,3 @@
-
 use std::cmp::Ordering;
 use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
@@ -21,7 +20,7 @@ pub type ScaleWeight = calc::Weight;
 pub const DEFAULT_SCALE_WEIGHT: ScaleWeight = 4.0;
 
 /// Pitch representation in the form of a scaled percentage between the min and max hz.
-#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone)]
 pub struct ScaledPerc(pub calc::Perc, pub ScaleWeight);
 
 impl ScaledPerc {

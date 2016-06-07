@@ -1,4 +1,3 @@
-
 use std::cmp::Ordering;
 use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
@@ -20,7 +19,7 @@ use super::{
 };
 
 /// Pitch representation in the form of a percentage between the min and max hz.
-#[derive(Debug, Copy, Clone, RustcEncodable, RustcDecodable)]
+#[derive(Debug, Copy, Clone)]
 pub struct Perc(pub calc::Perc);
 
 impl Perc {

@@ -7,7 +7,6 @@
 
 extern crate num;
 extern crate rand;
-extern crate rustc_serialize;
 
 pub use self::calc::{
     difference_in_semitones,
@@ -73,3 +72,5 @@ pub mod step;
 pub mod utils;
 pub mod convert;
 
+#[cfg(feature="serde_serialization")]
+mod serde;

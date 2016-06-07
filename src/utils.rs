@@ -1,4 +1,3 @@
-
 use num::PrimInt as Int;
 
 /// The modulo function (handles negatives differently to Rust's remainder `%` operator).
@@ -10,4 +9,3 @@ pub fn modulo<I: Int>(a: I, b: I) -> I {
         r                                     => r,
     }
 }
-
