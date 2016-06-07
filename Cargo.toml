@@ -2,7 +2,7 @@
 
 name = "pitch_calc"
 description = "A library for musical pitch conversions! Provides functions and methods for converting between frequency, midi-step and letter-octave."
-version = "0.10.0"
+version = "0.11.0"
 authors = ["mitchmindtree <mitchell.nordine@gmail.com>"]
 readme = "README.md"
 keywords = ["pitch", "dsp", "audio", "music", "conversion"]

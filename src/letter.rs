@@ -1,4 +1,3 @@
-
 use self::Letter::{
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 };
