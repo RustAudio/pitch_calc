@@ -4,10 +4,6 @@ rust:
     - nightly
     - stable
 
-os:
-    - osx
-    - linux
-
 script:
     - cargo build --verbose
     - cargo test --verbose
