@@ -8,6 +8,11 @@
 extern crate num;
 extern crate rand;
 
+#[cfg(feature="serde_serialization")]
+extern crate serde;
+#[cfg(feature="serde_serialization")]
+#[macro_use] extern crate serde_derive;
+
 pub use self::calc::{
     difference_in_semitones,
     hz_from_letter_octave,
@@ -73,4 +78,5 @@ pub mod utils;
 pub mod convert;
 
 #[cfg(feature="serde_serialization")]
-mod serde;
+#[cfg(test)]
+mod serde_tests;

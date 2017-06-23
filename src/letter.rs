@@ -10,6 +10,7 @@ pub const TOTAL_LETTERS: u8 = 12;
 
 /// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
 #[derive(Copy, Clone, Debug, Hash)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub enum Letter {
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 }

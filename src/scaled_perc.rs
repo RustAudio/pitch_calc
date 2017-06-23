@@ -21,6 +21,7 @@ pub const DEFAULT_SCALE_WEIGHT: ScaleWeight = 4.0;
 
 /// Pitch representation in the form of a scaled percentage between the min and max hz.
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub struct ScaledPerc(pub calc::Perc, pub ScaleWeight);
 
 impl ScaledPerc {
