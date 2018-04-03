@@ -23,6 +23,7 @@ pub const MIN: calc::Hz = 20.0;
 
 /// Pitch representation in the form of a frequency (hz).
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub struct Hz(pub calc::Hz);
 
 impl Hz {

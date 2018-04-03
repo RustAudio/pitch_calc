@@ -21,6 +21,7 @@ pub type Octave = i32;
 
 /// Pitch representation in the form of a frequency (hz).
 #[derive(Debug, Copy, Clone, Hash)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub struct LetterOctave(pub Letter, pub Octave);
 
 impl LetterOctave {

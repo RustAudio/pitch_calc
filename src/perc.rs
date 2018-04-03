@@ -20,6 +20,7 @@ use super::{
 
 /// Pitch representation in the form of a percentage between the min and max hz.
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub struct Perc(pub calc::Perc);
 
 impl Perc {

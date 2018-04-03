@@ -20,6 +20,7 @@ use super::{
 
 /// Pitch representation in the form of a MIDI-esque Step.
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub struct Step(pub calc::Step);
 
 impl Step {

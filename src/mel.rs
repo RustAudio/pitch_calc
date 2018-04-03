@@ -21,6 +21,7 @@ use super::{
 /// Mel value representation
 ///     - based on the Mel scale coined by Stevens, Volkmann and Newman in 1937.
 #[derive(Debug, Copy, Clone)]
+#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub struct Mel(pub calc::Mel);
 
 impl Mel {
