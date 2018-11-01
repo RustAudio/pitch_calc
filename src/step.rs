@@ -24,99 +24,100 @@ use super::{
 pub struct Step(pub calc::Step);
 
 impl Step {
-
     /// Return the value in steps.
     #[inline]
-    pub fn step(&self) -> calc::Step { let Step(step) = *self; step }
+    pub fn step(self) -> calc::Step {
+        let Step(step) = self;
+        step
+    }
 
     /// Return the unit value of the equivalent frequency Hz.
     #[inline]
-    pub fn hz(&self) -> calc::Hz {
-        let Step(step) = *self;
+    pub fn hz(self) -> calc::Hz {
+        let Step(step) = self;
         hz_from_step(step)
     }
 
     /// Convert to the equivalent frequency in Hz.
     #[inline]
-    pub fn to_hz(&self) -> Hz {
+    pub fn to_hz(self) -> Hz {
         Hz(self.hz())
     }
 
     /// Convert to the closest equivalent (Letter, Octave).
     #[inline]
-    pub fn letter_octave(&self) -> (Letter, Octave) {
+    pub fn letter_octave(self) -> (Letter, Octave) {
         letter_octave_from_step(self.step())
     }
 
     /// Convert to the closest equivalent Letter.
     #[inline]
-    pub fn letter(&self) -> Letter {
+    pub fn letter(self) -> Letter {
         let (letter, _) = self.letter_octave();
         letter
     }
 
     /// Convert to the closest equivalent Octave.
     #[inline]
-    pub fn octave(&self) -> Octave {
+    pub fn octave(self) -> Octave {
         let (_, octave) = self.letter_octave();
         octave
     }
 
     /// Convert to the closest equivalent LetterOctave.
     #[inline]
-    pub fn to_letter_octave(&self) -> LetterOctave {
+    pub fn to_letter_octave(self) -> LetterOctave {
         let (letter, octave) = self.letter_octave();
         LetterOctave(letter, octave)
     }
 
     /// Convert to a Mel unit value.
     #[inline]
-    pub fn mel(&self) -> calc::Mel {
+    pub fn mel(self) -> calc::Mel {
         mel_from_step(self.step())
     }
 
     /// Convert to a Mel struct.
     #[inline]
-    pub fn to_mel(&self) -> Mel {
+    pub fn to_mel(self) -> Mel {
         Mel(self.mel())
     }
 
     /// Convert to the unit value of the equivalent Perc.
     #[inline]
-    pub fn perc(&self) -> calc::Perc {
+    pub fn perc(self) -> calc::Perc {
         perc_from_step(self.step())
     }
 
     /// Convert to a percentage of the human hearing range.
     #[inline]
-    pub fn to_perc(&self) -> Perc {
+    pub fn to_perc(self) -> Perc {
         Perc(self.perc())
     }
 
     /// Convert to a scaled percentage of the human hearing range with a given weight.
     #[inline]
-    pub fn scaled_perc_with_weight(&self, weight: ScaleWeight) -> calc::Perc {
+    pub fn scaled_perc_with_weight(self, weight: ScaleWeight) -> calc::Perc {
         scaled_perc_from_step(self.step(), weight)
     }
 
     /// Convert to a scaled percentage of the human hearing range.
     #[inline]
-    pub fn scaled_perc(&self) -> calc::Perc {
+    pub fn scaled_perc(self) -> calc::Perc {
         self.scaled_perc_with_weight(DEFAULT_SCALE_WEIGHT)
     }
 
     /// Convert to a scaled percentage of the human hearing range with a given weight.
     #[inline]
-    pub fn to_scaled_perc_with_weight(&self, weight: ScaleWeight) -> ScaledPerc {
+    pub fn to_scaled_perc_with_weight(self, weight: ScaleWeight) -> ScaledPerc {
         ScaledPerc(self.scaled_perc_with_weight(weight), weight)
     }
 
     /// Convert to a scaled percentage of the human hearing range.
     #[inline]
-    pub fn to_scaled_perc(&self) -> ScaledPerc {
+    pub fn to_scaled_perc(self) -> ScaledPerc {
         self.to_scaled_perc_with_weight(DEFAULT_SCALE_WEIGHT)
     }
-
 }
 
 impl Add for Step {

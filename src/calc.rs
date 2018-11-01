@@ -95,7 +95,7 @@ pub fn letter_octave_from_scaled_perc(scaled: Perc, weight: Weight) -> (Letter, 
 #[inline]
 pub fn letter_octave_from_step(step: Step) -> (Letter, Octave) {
     let rounded = step.round() as Octave;
-    let letter_step = modulo(rounded, TOTAL_LETTERS as Octave);
+    let letter_step = modulo(rounded, Octave::from(TOTAL_LETTERS));
     (FromPrimitive::from_i32(letter_step).unwrap(), (rounded - letter_step) / 12 - MIDI_OCTAVE_OFFSET)
 }
 
@@ -133,7 +133,7 @@ pub fn mel_from_step(step: Step) -> Mel {
 /// Calculate percentage from hz.
 #[inline]
 pub fn perc_from_hz(hz: Hz) -> Perc {
-    (hz - MIN_HZ) as Perc / (MAX_HZ - MIN_HZ) as Perc
+    Perc::from(hz - MIN_HZ) / Perc::from(MAX_HZ - MIN_HZ)
 }
 
 /// Calculate percentage from letter octave.
@@ -151,7 +151,7 @@ pub fn perc_from_mel(mel: Mel) -> Perc {
 /// Calculate percentage from scaled percentage.
 #[inline]
 pub fn perc_from_scaled_perc(scaled: Perc, weight: Weight) -> Perc {
-    scaled.powf(weight as Perc)
+    scaled.powf(Perc::from(weight))
 }
 
 /// Calculate frequency percentage from pitch as `step`.
@@ -181,7 +181,7 @@ pub fn scaled_perc_from_mel(mel: Mel, weight: Weight) -> Perc {
 /// Calculate scaled percentage from percentage.
 #[inline]
 pub fn scaled_perc_from_perc(perc: Perc, weight: Weight) -> Perc {
-    perc.powf(1.0 / weight as Perc)
+    perc.powf(1.0 / Perc::from(weight))
 }
 
 /// Calculate scaled frequency percentage from pitch as `step`.
