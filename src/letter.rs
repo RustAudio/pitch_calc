@@ -9,7 +9,7 @@ use utils::modulo;
 pub const TOTAL_LETTERS: u8 = 12;
 
 /// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
-#[derive(Copy, Clone, Debug, Hash)]
+#[derive(Copy, Clone, Debug)]
 #[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
 pub enum Letter {
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
@@ -42,9 +42,9 @@ impl Eq for Letter {}
 impl Letter {
 
     /// Returns whether or not the note would be a black key on a standard piano or keyboard.
-    pub fn is_black_key(&self) -> bool {
+    pub fn is_black_key(self) -> bool {
         use self::Letter::*;
-        match *self {
+        match self {
             Csh | Db | Dsh | Eb | Fsh | Gb | Gsh | Ab | Ash | Bb => true,
             C | D | E | F | G | A | B => false,
         }
