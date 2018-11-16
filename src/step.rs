@@ -1,21 +1,21 @@
 use std::cmp::Ordering;
-use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
+use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 use super::{
     calc,
     DEFAULT_SCALE_WEIGHT,
     Hz,
-    LetterOctave,
+    hz_from_step,
     Letter,
+    letter_octave_from_step,
+    LetterOctave,
     Mel,
+    mel_from_step,
     Octave,
     Perc,
-    ScaledPerc,
-    ScaleWeight,
-    hz_from_step,
-    letter_octave_from_step,
-    mel_from_step,
     perc_from_step,
     scaled_perc_from_step,
+    ScaledPerc,
+    ScaleWeight,
 };
 
 /// Pitch representation in the form of a MIDI-esque Step.
@@ -191,3 +191,48 @@ impl Ord for Step {
     }
 }
 
+impl<T> From<T> for Step where T: Into<f32> {
+    fn from(t: T) -> Step {
+        Step(t.into())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Step;
+
+    macro_rules! t {
+        (
+            $($x:ty),+
+        ) => {
+            fn from(val: f32) {
+                $(
+                    assert_eq!(Step::from(val as $x), Step(val));
+                )*
+            }
+
+            #[test]
+            fn test_from_integer() {
+                from(0.0);
+                from(60.0);
+                from(127.0);
+            }
+
+            fn into(val: f32) {
+                $(
+                    let actual: Step = (val as $x).into();
+                    assert_eq!(actual, Step(val));
+                )*
+            }
+
+            #[test]
+            fn test_into_integer() {
+                into(0.0);
+                into(60.0);
+                into(127.0);
+            }
+        };
+    }
+
+    t!(u8, u16, i8, i16);
+}
