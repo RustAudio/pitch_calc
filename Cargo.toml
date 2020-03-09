@@ -13,9 +13,8 @@ homepage = "https://github.com/RustAudio/pitch_calc"
 [dependencies]
 num = "0.1.28"
 rand = "0.3.12"
-serde = { optional = true, version = "1.0.8" }
-serde_derive = { optional = true, version = "1.0.8" }
+serde = { optional = true, version = "1.0.*", features = ["derive"] }
 serde_json = { optional = true, version = "1.0.2" }
 
 [features]
-serde_serialization = ["serde", "serde_derive", "serde_json"]
+serde_serialization = ["serde", "serde_json"]

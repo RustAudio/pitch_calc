@@ -9,9 +9,8 @@ extern crate num;
 extern crate rand;
 
 #[cfg(feature="serde_serialization")]
+#[macro_use]
 extern crate serde;
-#[cfg(feature="serde_serialization")]
-#[macro_use] extern crate serde_derive;
 
 pub use self::calc::{
     difference_in_semitones,
