@@ -1,17 +1,16 @@
-
 use num::{
     Float,
     FromPrimitive,
     ToPrimitive,
 };
-use super::{
+use crate::{
     Letter,
     MAX_HZ,
     MIN_HZ,
     Octave,
     TOTAL_LETTERS
 };
-use utils::modulo;
+use crate::utils::modulo;
 
 /// Useful for conversions between Step and Hz.
 const TWELFTH_ROOT_OF_TWO: f32 = 1.059463094359;

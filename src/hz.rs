@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
@@ -23,7 +25,7 @@ pub const MIN: calc::Hz = 20.0;
 
 /// Pitch representation in the form of a frequency (hz).
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Hz(pub calc::Hz);
 
 impl Hz {

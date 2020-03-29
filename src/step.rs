@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 use super::{
@@ -20,7 +22,7 @@ use super::{
 
 /// Pitch representation in the form of a MIDI-esque Step.
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Step(pub calc::Step);
 
 impl Step {

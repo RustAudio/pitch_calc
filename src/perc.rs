@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
@@ -20,7 +22,7 @@ use super::{
 
 /// Pitch representation in the form of a percentage between the min and max hz.
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Perc(pub calc::Perc);
 
 impl Perc {

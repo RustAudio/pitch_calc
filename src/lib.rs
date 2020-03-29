@@ -5,13 +5,6 @@
 //!  Created by Mitchell Nordine at 11:26PM on November 02, 2014.
 //!
 
-extern crate num;
-extern crate rand;
-
-#[cfg(feature="serde_serialization")]
-#[macro_use]
-extern crate serde;
-
 pub use self::calc::{
     difference_in_semitones,
     hz_from_letter_octave,
@@ -75,7 +68,3 @@ pub mod scaled_perc;
 pub mod step;
 pub mod utils;
 pub mod convert;
-
-#[cfg(feature="serde_serialization")]
-#[cfg(test)]
-mod serde_tests;

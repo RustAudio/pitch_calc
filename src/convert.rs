@@ -1,5 +1,5 @@
+use crate::calc::Hz as CalcHz;
 use std::convert::From;
-use calc::Hz as CalcHz;
 use super::{LetterOctave, Step, Mel, Perc, ScaledPerc, Hz};
 
 /// Implement a single From<T> using the passed expression

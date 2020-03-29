@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
@@ -21,7 +23,7 @@ pub type Octave = i32;
 
 /// Pitch representation in the form of a frequency (hz).
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct LetterOctave(pub Letter, pub Octave);
 
 impl LetterOctave {

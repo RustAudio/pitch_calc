@@ -1,16 +1,18 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+use crate::utils::modulo;
+use num::{FromPrimitive, ToPrimitive};
+use num::PrimInt as Int;
 use self::Letter::{
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 };
-use num::{FromPrimitive, ToPrimitive};
-use num::PrimInt as Int;
 use std::cmp::Ordering;
-use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
 
 /// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
 #[derive(Copy, Clone, Debug)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Letter {
     C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
 }

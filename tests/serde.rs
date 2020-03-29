@@ -1,17 +1,15 @@
-extern crate serde_json;
+#![cfg(features = "serde")]
 
-use hz::Hz;
-use letter::Letter;
-use letter_octave::LetterOctave;
-use mel::Mel;
-use perc::Perc;
-use scaled_perc::ScaledPerc;
-use step::Step;
+use pitch_calc::hz::Hz;
+use pitch_calc::letter::Letter;
+use pitch_calc::letter_octave::LetterOctave;
+use pitch_calc::mel::Mel;
+use pitch_calc::perc::Perc;
+use pitch_calc::scaled_perc::ScaledPerc;
+use pitch_calc::step::Step;
 
 #[test]
 fn test_hz() {
-    extern crate serde_json;
-
     let hz = Hz(440.0);
     let serialized = serde_json::to_string(&hz).unwrap();
 
