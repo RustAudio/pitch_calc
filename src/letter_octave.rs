@@ -1,23 +1,12 @@
+use super::{
+    calc, hz_from_letter_octave, mel_from_letter_octave, perc_from_letter_octave,
+    scaled_perc_from_letter_octave, step_from_letter_octave, Hz, Letter, Mel, Perc, ScaleWeight,
+    ScaledPerc, Step, DEFAULT_SCALE_WEIGHT,
+};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
-use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
-use super::{
-    calc,
-    DEFAULT_SCALE_WEIGHT,
-    Letter,
-    Hz,
-    Mel,
-    Perc,
-    ScaledPerc,
-    ScaleWeight,
-    Step,
-    hz_from_letter_octave,
-    mel_from_letter_octave,
-    perc_from_letter_octave,
-    scaled_perc_from_letter_octave,
-    step_from_letter_octave,
-};
+use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
 pub type Octave = i32;
 
@@ -27,7 +16,6 @@ pub type Octave = i32;
 pub struct LetterOctave(pub Letter, pub Octave);
 
 impl LetterOctave {
-
     /// Return the value as (Letter, Octave).
     #[inline]
     pub fn letter_octave(self) -> (Letter, Octave) {
@@ -125,7 +113,6 @@ impl LetterOctave {
     pub fn to_step(self) -> Step {
         Step(self.step())
     }
-
 }
 
 impl Add for LetterOctave {
@@ -205,4 +192,3 @@ impl Ord for LetterOctave {
         self.partial_cmp(other).unwrap()
     }
 }
-

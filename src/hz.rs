@@ -1,24 +1,11 @@
+use super::{
+    calc, letter_octave_from_hz, mel_from_hz, perc_from_hz, scaled_perc_from_hz, step_from_hz,
+    Letter, LetterOctave, Mel, Octave, Perc, ScaleWeight, ScaledPerc, Step, DEFAULT_SCALE_WEIGHT,
+};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
-use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
-use super::{
-    calc,
-    DEFAULT_SCALE_WEIGHT,
-    LetterOctave,
-    Letter,
-    Mel,
-    Octave,
-    Perc,
-    ScaledPerc,
-    ScaleWeight,
-    Step,
-    letter_octave_from_hz,
-    mel_from_hz,
-    perc_from_hz,
-    scaled_perc_from_hz,
-    step_from_hz,
-};
+use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
 pub const MAX: calc::Hz = 20_000.0;
 pub const MIN: calc::Hz = 20.0;

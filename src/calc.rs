@@ -1,16 +1,6 @@
-use num::{
-    Float,
-    FromPrimitive,
-    ToPrimitive,
-};
-use crate::{
-    Letter,
-    MAX_HZ,
-    MIN_HZ,
-    Octave,
-    TOTAL_LETTERS
-};
 use crate::utils::modulo;
+use crate::{Letter, Octave, MAX_HZ, MIN_HZ, TOTAL_LETTERS};
+use num::{Float, FromPrimitive, ToPrimitive};
 
 /// Useful for conversions between Step and Hz.
 const TWELFTH_ROOT_OF_TWO: f32 = 1.059463094359;
@@ -33,7 +23,11 @@ pub type Weight = f32;
 #[inline]
 pub fn difference_in_semitones(letter_a: Letter, letter_b: Letter) -> Semitones {
     let diff = (letter_a as Semitones - letter_b as Semitones).abs();
-    if diff > 6 { diff - 12 } else { diff }
+    if diff > 6 {
+        diff - 12
+    } else {
+        diff
+    }
 }
 
 /// Calculate hz from (Letter, Octave).
@@ -95,7 +89,10 @@ pub fn letter_octave_from_scaled_perc(scaled: Perc, weight: Weight) -> (Letter, 
 pub fn letter_octave_from_step(step: Step) -> (Letter, Octave) {
     let rounded = step.round() as Octave;
     let letter_step = modulo(rounded, Octave::from(TOTAL_LETTERS));
-    (FromPrimitive::from_i32(letter_step).unwrap(), (rounded - letter_step) / 12 - MIDI_OCTAVE_OFFSET)
+    (
+        FromPrimitive::from_i32(letter_step).unwrap(),
+        (rounded - letter_step) / 12 - MIDI_OCTAVE_OFFSET,
+    )
 }
 
 /// Calculate mel from hz.
@@ -218,4 +215,3 @@ pub fn step_from_perc(perc: Perc) -> Step {
 pub fn step_from_scaled_perc(scaled: Perc, weight: Weight) -> Step {
     step_from_hz(hz_from_scaled_perc(scaled, weight))
 }
-

@@ -1,6 +1,6 @@
+use super::{Hz, LetterOctave, Mel, Perc, ScaledPerc, Step};
 use crate::calc::Hz as CalcHz;
 use std::convert::From;
-use super::{LetterOctave, Step, Mel, Perc, ScaledPerc, Hz};
 
 /// Implement a single From<T> using the passed expression
 macro_rules! impl_from {
@@ -47,8 +47,8 @@ impl_from!(CalcHz, Hz, other => Hz(other));
 
 #[cfg(test)]
 mod tests {
-    use std::convert::Into;
     use super::super::*;
+    use std::convert::Into;
 
     fn into_test_gen<T: Into<Hz>>(val: T) -> Hz {
         val.into()
