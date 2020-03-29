@@ -1,20 +1,35 @@
-use self::Letter::{
-    C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
-};
-use num::{FromPrimitive, ToPrimitive};
+use self::Letter::{Ab, Ash, Bb, Csh, Db, Dsh, Eb, Fsh, Gb, Gsh, A, B, C, D, E, F, G};
+use crate::utils::modulo;
 use num::PrimInt as Int;
+use num::{FromPrimitive, ToPrimitive};
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
-use utils::modulo;
 
 pub const TOTAL_LETTERS: u8 = 12;
 
 /// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
 #[derive(Copy, Clone, Debug)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Letter {
-    C, Csh, Db, D, Dsh, Eb, E, F, Fsh, Gb, G, Gsh, Ab, A, Ash, Bb, B
+    C,
+    Csh,
+    Db,
+    D,
+    Dsh,
+    Eb,
+    E,
+    F,
+    Fsh,
+    Gb,
+    G,
+    Gsh,
+    Ab,
+    A,
+    Ash,
+    Bb,
+    B,
 }
-
 
 impl PartialOrd for Letter {
     fn partial_cmp(&self, other: &Letter) -> Option<Ordering> {
@@ -38,9 +53,7 @@ impl PartialEq for Letter {
 
 impl Eq for Letter {}
 
-
 impl Letter {
-
     /// Returns whether or not the note would be a black key on a standard piano or keyboard.
     pub fn is_black_key(self) -> bool {
         use self::Letter::*;
@@ -49,23 +62,21 @@ impl Letter {
             C | D | E | F | G | A | B => false,
         }
     }
-
 }
-
 
 impl FromPrimitive for Letter {
     fn from_i64(n: i64) -> Option<Letter> {
         match modulo(n, 12) {
-            0  => Some(C),
-            1  => Some(Csh),
-            2  => Some(D),
-            3  => Some(Dsh),
-            4  => Some(E),
-            5  => Some(F),
-            6  => Some(Fsh),
-            7  => Some(G),
-            8  => Some(Gsh),
-            9  => Some(A),
+            0 => Some(C),
+            1 => Some(Csh),
+            2 => Some(D),
+            3 => Some(Dsh),
+            4 => Some(E),
+            5 => Some(F),
+            6 => Some(Fsh),
+            7 => Some(G),
+            8 => Some(Gsh),
+            9 => Some(A),
             10 => Some(Ash),
             11 => Some(B),
             _ => None,
@@ -73,16 +84,16 @@ impl FromPrimitive for Letter {
     }
     fn from_u64(n: u64) -> Option<Letter> {
         match modulo(n, 12) {
-            0  => Some(C),
-            1  => Some(Csh),
-            2  => Some(D),
-            3  => Some(Dsh),
-            4  => Some(E),
-            5  => Some(F),
-            6  => Some(Fsh),
-            7  => Some(G),
-            8  => Some(Gsh),
-            9  => Some(A),
+            0 => Some(C),
+            1 => Some(Csh),
+            2 => Some(D),
+            3 => Some(Dsh),
+            4 => Some(E),
+            5 => Some(F),
+            6 => Some(Fsh),
+            7 => Some(G),
+            8 => Some(Gsh),
+            9 => Some(A),
             10 => Some(Ash),
             11 => Some(B),
             _ => None,
@@ -93,34 +104,34 @@ impl FromPrimitive for Letter {
 impl ToPrimitive for Letter {
     fn to_i64(&self) -> Option<i64> {
         match *self {
-            C        => Some(0),
+            C => Some(0),
             Csh | Db => Some(1),
-            D        => Some(2),
+            D => Some(2),
             Dsh | Eb => Some(3),
-            E        => Some(4),
-            F        => Some(5),
+            E => Some(4),
+            F => Some(5),
             Fsh | Gb => Some(6),
-            G        => Some(7),
+            G => Some(7),
             Gsh | Ab => Some(8),
-            A        => Some(9),
+            A => Some(9),
             Ash | Bb => Some(10),
-            B        => Some(11),
+            B => Some(11),
         }
     }
     fn to_u64(&self) -> Option<u64> {
         match *self {
-            C        => Some(0),
+            C => Some(0),
             Csh | Db => Some(1),
-            D        => Some(2),
+            D => Some(2),
             Dsh | Eb => Some(3),
-            E        => Some(4),
-            F        => Some(5),
+            E => Some(4),
+            F => Some(5),
             Fsh | Gb => Some(6),
-            G        => Some(7),
+            G => Some(7),
             Gsh | Ab => Some(8),
-            A        => Some(9),
+            A => Some(9),
             Ash | Bb => Some(10),
-            B        => Some(11),
+            B => Some(11),
         }
     }
 }
@@ -142,7 +153,6 @@ impl<T: Int> ToLetter for T {
         FromPrimitive::from_i64(self.to_i64().unwrap()).unwrap()
     }
 }
-
 
 impl<T: Int> ::std::ops::Add<T> for Letter {
     type Output = Letter;
@@ -173,4 +183,3 @@ impl ::std::ops::Sub for Letter {
         self - rhs.to_i16().unwrap()
     }
 }
-

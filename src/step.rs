@@ -1,26 +1,16 @@
+use super::{
+    calc, hz_from_step, letter_octave_from_step, mel_from_step, perc_from_step,
+    scaled_perc_from_step, Hz, Letter, LetterOctave, Mel, Octave, Perc, ScaleWeight, ScaledPerc,
+    DEFAULT_SCALE_WEIGHT,
+};
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
-use super::{
-    calc,
-    DEFAULT_SCALE_WEIGHT,
-    Hz,
-    hz_from_step,
-    Letter,
-    letter_octave_from_step,
-    LetterOctave,
-    Mel,
-    mel_from_step,
-    Octave,
-    Perc,
-    perc_from_step,
-    scaled_perc_from_step,
-    ScaledPerc,
-    ScaleWeight,
-};
 
 /// Pitch representation in the form of a MIDI-esque Step.
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Step(pub calc::Step);
 
 impl Step {
@@ -191,7 +181,10 @@ impl Ord for Step {
     }
 }
 
-impl<T> From<T> for Step where T: Into<f32> {
+impl<T> From<T> for Step
+where
+    T: Into<f32>,
+{
     fn from(t: T) -> Step {
         Step(t.into())
     }

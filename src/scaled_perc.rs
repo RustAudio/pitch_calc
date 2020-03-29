@@ -1,33 +1,26 @@
-use std::cmp::Ordering;
-use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
-    calc,
-    Hz,
-    LetterOctave,
-    Letter,
-    Mel,
-    Octave,
-    Perc,
+    calc, hz_from_scaled_perc, letter_octave_from_scaled_perc, mel_from_scaled_perc,
+    perc_from_scaled_perc, step_from_scaled_perc, Hz, Letter, LetterOctave, Mel, Octave, Perc,
     Step,
-    hz_from_scaled_perc,
-    letter_octave_from_scaled_perc,
-    mel_from_scaled_perc,
-    perc_from_scaled_perc,
-    step_from_scaled_perc,
 };
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+use std::cmp::Ordering;
+use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
 pub type ScaleWeight = calc::Weight;
 pub const DEFAULT_SCALE_WEIGHT: ScaleWeight = 4.0;
 
 /// Pitch representation in the form of a scaled percentage between the min and max hz.
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct ScaledPerc(pub calc::Perc, pub ScaleWeight);
 
 impl ScaledPerc {
-
     /// A constructor for a ScaledPerc that uses the default weight.
-    pub fn new(perc: calc::Perc) -> ScaledPerc { ScaledPerc(perc, DEFAULT_SCALE_WEIGHT) }
+    pub fn new(perc: calc::Perc) -> ScaledPerc {
+        ScaledPerc(perc, DEFAULT_SCALE_WEIGHT)
+    }
 
     /// Return the value as a scaled percentage.
     #[inline]
@@ -122,7 +115,6 @@ impl ScaledPerc {
     pub fn to_step(&self) -> Step {
         Step(self.step())
     }
-
 }
 
 impl Add for ScaledPerc {
@@ -195,4 +187,3 @@ impl Ord for ScaledPerc {
         self.partial_cmp(other).unwrap()
     }
 }
-

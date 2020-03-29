@@ -1,19 +1,12 @@
-//! 
+//!
 //! An example of the pitch_calc crate in action.
 //!
 
 extern crate pitch_calc;
 
-use pitch_calc::{
-    Hz,
-    Letter,
-    LetterOctave,
-    ScaledPerc,
-    Step,
-};
+use pitch_calc::{Hz, Letter, LetterOctave, ScaledPerc, Step};
 
 fn main() {
-
     println!("");
 
     // You can convert midi-step to letter octave
@@ -53,7 +46,12 @@ fn main() {
     let weight = 3.0;
     for i in 0..10 {
         let perc = ScaledPerc(i as f64 / 10.0, weight);
-        println!("{:?}% == {:?}hz is closest to {:?}", perc.perc(), perc.hz(), perc.letter_octave());
+        println!(
+            "{:?}% == {:?}hz is closest to {:?}",
+            perc.perc(),
+            perc.hz(),
+            perc.letter_octave()
+        );
     }
 
     // "Mels" can be used to represent an evenly distributed range of our pitch perception.
@@ -65,19 +63,17 @@ fn main() {
 
     // Test a big chain of conversions.
     let a_4 = LetterOctave(Letter::A, 4)
-                .to_hz()
-                .to_perc()
-                .to_mel()
-                .to_step()
-                .to_perc()
-                .to_hz()
-                .to_step()
-                .to_letter_octave()
-                .hz().round() as i32;
+        .to_hz()
+        .to_perc()
+        .to_mel()
+        .to_step()
+        .to_perc()
+        .to_hz()
+        .to_step()
+        .to_letter_octave()
+        .hz()
+        .round() as i32;
     assert!(a_4 == 440, "A4 == {:?}", a_4);
 
     println!("Great success!");
-
 }
-
-

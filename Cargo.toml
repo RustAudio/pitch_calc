@@ -1,20 +1,19 @@
 [package]
-
 name = "pitch_calc"
 description = "A library for musical pitch conversions! Provides functions and methods for converting between frequency, midi-step and letter-octave."
-version = "0.11.1"
+version = "0.12.0"
 authors = ["mitchmindtree <mitchell.nordine@gmail.com>"]
 readme = "README.md"
 keywords = ["pitch", "dsp", "audio", "music", "conversion"]
 license = "Apache-2.0/MIT"
 repository = "https://github.com/RustAudio/pitch_calc.git"
 homepage = "https://github.com/RustAudio/pitch_calc"
+edition = "2018"
 
 [dependencies]
 num = "0.1.28"
 rand = "0.3.12"
 serde = { optional = true, version = "1.0.*", features = ["derive"] }
-serde_json = { optional = true, version = "1.0.2" }
 
-[features]
-serde_serialization = ["serde", "serde_json"]
+[dev-dependencies]
+serde_json = { version = "1.0.2" }

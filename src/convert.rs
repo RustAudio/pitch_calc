@@ -1,6 +1,6 @@
+use super::{Hz, LetterOctave, Mel, Perc, ScaledPerc, Step};
+use crate::calc::Hz as CalcHz;
 use std::convert::From;
-use calc::Hz as CalcHz;
-use super::{LetterOctave, Step, Mel, Perc, ScaledPerc, Hz};
 
 /// Implement a single From<T> using the passed expression
 macro_rules! impl_from {
@@ -32,7 +32,7 @@ macro_rules! impl_all_pairs {
     }
 }
 
-/// Implement From<T> for all fully defined pitch types
+// Implement From<T> for all fully defined pitch types
 impl_all_pairs!(
     to_hz => Hz,
     to_mel => Mel,
@@ -42,13 +42,13 @@ impl_all_pairs!(
     to_step => Step
     );
 
-/// Additionally implement From for calc::Hz = f32
+// Additionally implement From for calc::Hz = f32
 impl_from!(CalcHz, Hz, other => Hz(other));
 
 #[cfg(test)]
 mod tests {
-    use std::convert::Into;
     use super::super::*;
+    use std::convert::Into;
 
     fn into_test_gen<T: Into<Hz>>(val: T) -> Hz {
         val.into()

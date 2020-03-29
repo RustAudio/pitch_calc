@@ -1,26 +1,16 @@
-use std::cmp::Ordering;
-use std::ops::{Add, Sub, Mul, Div, Rem, Neg};
 use super::{
-    calc,
+    calc, hz_from_perc, letter_octave_from_perc, mel_from_perc, scaled_perc_from_perc,
+    step_from_perc, Hz, Letter, LetterOctave, Mel, Octave, ScaleWeight, ScaledPerc, Step,
     DEFAULT_SCALE_WEIGHT,
-    Hz,
-    LetterOctave,
-    Letter,
-    Mel,
-    Octave,
-    ScaledPerc,
-    ScaleWeight,
-    Step,
-    hz_from_perc,
-    letter_octave_from_perc,
-    mel_from_perc,
-    scaled_perc_from_perc,
-    step_from_perc,
 };
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+use std::cmp::Ordering;
+use std::ops::{Add, Div, Mul, Neg, Rem, Sub};
 
 /// Pitch representation in the form of a percentage between the min and max hz.
 #[derive(Debug, Copy, Clone)]
-#[cfg_attr(feature = "serde_serialization", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct Perc(pub calc::Perc);
 
 impl Perc {
@@ -190,4 +180,3 @@ impl Ord for Perc {
         self.partial_cmp(other).unwrap()
     }
 }
-
