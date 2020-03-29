@@ -32,7 +32,7 @@ macro_rules! impl_all_pairs {
     }
 }
 
-/// Implement From<T> for all fully defined pitch types
+// Implement From<T> for all fully defined pitch types
 impl_all_pairs!(
     to_hz => Hz,
     to_mel => Mel,
@@ -42,7 +42,7 @@ impl_all_pairs!(
     to_step => Step
     );
 
-/// Additionally implement From for calc::Hz = f32
+// Additionally implement From for calc::Hz = f32
 impl_from!(CalcHz, Hz, other => Hz(other));
 
 #[cfg(test)]
