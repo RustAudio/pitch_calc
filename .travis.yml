@@ -5,7 +5,7 @@ rust:
     - stable
 
 script:
-    - cargo build --verbose
+    - cargo check --verbose
     - cargo test --verbose
-    - cargo test --features="serde_serialization" --verbose
+    - cargo test --all-features --verbose
     - cargo doc --verbose
