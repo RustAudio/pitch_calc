@@ -1,4 +1,4 @@
-# pitch_calc [![Build Status](https://travis-ci.org/RustAudio/pitch_calc.svg?branch=master)](https://travis-ci.org/RustAudio/pitch_calc)
+# pitch_calc [![Build Status](https://travis-ci.org/RustAudio/pitch_calc.svg?branch=master)](https://travis-ci.org/RustAudio/pitch_calc) [![Crate info](https://img.shields.io/crates/v/pitch_calc.svg)](https://crates.io/crates/pitch_calc) [![API docs](https://img.shields.io/badge/docs.rs-pitch__calc-green.svg)](https://docs.rs/pitch_calc/)
 
 A library for musical pitch conversions!
 
