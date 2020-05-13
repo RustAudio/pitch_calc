@@ -1,7 +1,7 @@
 use self::Letter::{Ab, Ash, Bb, Csh, Db, Dsh, Eb, Fsh, Gb, Gsh, A, B, C, D, E, F, G};
 use crate::utils::modulo;
-use num::PrimInt as Int;
-use num::{FromPrimitive, ToPrimitive};
+use num_traits::PrimInt as Int;
+use num_traits::{FromPrimitive, ToPrimitive};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
@@ -136,8 +136,8 @@ impl ToPrimitive for Letter {
     }
 }
 
-impl ::rand::Rand for Letter {
-    fn rand<R: ::rand::Rng>(rng: &mut R) -> Letter {
+impl ::rand::distributions::Distribution<Letter> for ::rand::distributions::Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> Letter {
         rng.gen_range(0, 12).to_letter()
     }
 }
