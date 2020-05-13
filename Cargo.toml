@@ -11,8 +11,8 @@ homepage = "https://github.com/RustAudio/pitch_calc"
 edition = "2018"
 
 [dependencies]
-num = ">=0.1.28, <1"
-rand = ">=0.5, <1"
+num-traits = "0.2.11"
+rand = "0.7.3"
 serde = { optional = true, version = "1.0.*", features = ["derive"] }
 
 [dev-dependencies]
