@@ -136,8 +136,8 @@ impl ToPrimitive for Letter {
     }
 }
 
-impl ::rand::Rand for Letter {
-    fn rand<R: ::rand::Rng>(rng: &mut R) -> Letter {
+impl ::rand::distributions::Distribution<Letter> for ::rand::distributions::Standard {
+    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> Letter {
         rng.gen_range(0, 12).to_letter()
     }
 }
