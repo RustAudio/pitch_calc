@@ -1,4 +1,4 @@
-use num::PrimInt as Int;
+use num_traits::PrimInt as Int;
 
 /// The modulo function (handles negatives differently to Rust's remainder `%` operator).
 #[inline]
