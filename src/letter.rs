@@ -5,6 +5,9 @@ use num_traits::{FromPrimitive, PrimInt as Int, ToPrimitive};
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 
+#[cfg(feature = "rand")]
+use rand::{distr::Distribution, Rng};
+
 pub const TOTAL_LETTERS: u8 = 12;
 
 /// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
@@ -135,9 +138,10 @@ impl ToPrimitive for Letter {
     }
 }
 
-impl ::rand::Rand for Letter {
-    fn rand<R: ::rand::Rng>(rng: &mut R) -> Letter {
-        rng.gen_range(0, 12).to_letter()
+#[cfg(feature = "rand")]
+impl Distribution<Letter> for Letter {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Letter {
+        rng.random_range(0..12).to_letter()
     }
 }
 
