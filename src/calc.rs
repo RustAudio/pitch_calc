@@ -3,6 +3,7 @@ use crate::{Letter, Octave, MAX_HZ, MIN_HZ, TOTAL_LETTERS};
 use num_traits::{Float, FromPrimitive, ToPrimitive};
 
 /// Useful for conversions between Step and Hz.
+#[allow(clippy::excessive_precision)]
 const TWELFTH_ROOT_OF_TWO: f32 = 1.059463094359;
 /// The pitch `A 4` represented in steps.
 const TUNING_PITCH_A4: f32 = 69.0;
