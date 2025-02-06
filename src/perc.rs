@@ -173,10 +173,3 @@ impl PartialOrd for Perc {
         self.perc().partial_cmp(&other.perc())
     }
 }
-
-impl Ord for Perc {
-    #[inline]
-    fn cmp(&self, other: &Perc) -> Ordering {
-        self.partial_cmp(other).unwrap()
-    }
-}

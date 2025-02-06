@@ -35,8 +35,7 @@ pub enum Letter {
 
 impl PartialOrd for Letter {
     fn partial_cmp(&self, other: &Letter) -> Option<Ordering> {
-        let other_u8 = other.to_u8().unwrap();
-        self.to_u8().unwrap().partial_cmp(&other_u8)
+        Some(self.cmp(other))
     }
 }
 

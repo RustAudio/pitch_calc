@@ -178,10 +178,3 @@ impl PartialOrd for Hz {
         self.hz().partial_cmp(&other.hz())
     }
 }
-
-impl Ord for Hz {
-    #[inline]
-    fn cmp(&self, other: &Hz) -> Ordering {
-        self.partial_cmp(other).unwrap()
-    }
-}
