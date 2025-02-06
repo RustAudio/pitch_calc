@@ -34,13 +34,13 @@ macro_rules! impl_all_pairs {
 
 // Implement From<T> for all fully defined pitch types
 impl_all_pairs!(
-    to_hz => Hz,
-    to_mel => Mel,
-    to_letter_octave => LetterOctave,
-    to_scaled_perc => ScaledPerc,
-    to_perc => Perc,
-    to_step => Step
-    );
+to_hz => Hz,
+to_mel => Mel,
+to_letter_octave => LetterOctave,
+to_scaled_perc => ScaledPerc,
+to_perc => Perc,
+to_step => Step
+);
 
 // Additionally implement From for calc::Hz = f32
 impl_from!(CalcHz, Hz, other => Hz(other));
