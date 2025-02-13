@@ -5,7 +5,6 @@ use num_traits::{FromPrimitive, PrimInt as Int, ToPrimitive};
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 
-#[cfg(feature = "rand")]
 use rand::{distr::Distribution, Rng};
 
 pub const TOTAL_LETTERS: u8 = 12;
@@ -137,7 +136,6 @@ impl ToPrimitive for Letter {
     }
 }
 
-#[cfg(feature = "rand")]
 impl Distribution<Letter> for Letter {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Letter {
         rng.random_range(0..12).to_letter()
