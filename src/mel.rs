@@ -172,10 +172,3 @@ impl PartialOrd for Mel {
         self.mel().partial_cmp(&other.mel())
     }
 }
-
-impl Ord for Mel {
-    #[inline]
-    fn cmp(&self, other: &Mel) -> Ordering {
-        self.partial_cmp(other).unwrap()
-    }
-}

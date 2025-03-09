@@ -180,10 +180,3 @@ impl PartialOrd for ScaledPerc {
         self.to_perc().partial_cmp(&other.to_perc())
     }
 }
-
-impl Ord for ScaledPerc {
-    #[inline]
-    fn cmp(&self, other: &ScaledPerc) -> Ordering {
-        self.partial_cmp(other).unwrap()
-    }
-}

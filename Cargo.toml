@@ -8,12 +8,15 @@ keywords = ["pitch", "dsp", "audio", "music", "conversion"]
 license = "Apache-2.0/MIT"
 repository = "https://github.com/RustAudio/pitch_calc.git"
 homepage = "https://github.com/RustAudio/pitch_calc"
-edition = "2018"
+edition = "2021"
+
+[features]
+serde = ["dep:serde"]
 
 [dependencies]
-num-traits = "0.2.15"
-rand = "0.3.12"
-serde = { optional = true, version = "1.0.*", features = ["derive"] }
+num-traits = "0.2"
+rand = { version = "0.9", default-features = false }
+serde = { optional = true, version = "1", features = ["derive"] }
 
 [dev-dependencies]
-serde_json = { version = "1.0.2" }
+serde_json = { version = "1" }

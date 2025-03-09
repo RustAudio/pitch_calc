@@ -1,4 +1,4 @@
-#![cfg(features = "serde")]
+#![cfg(feature = "serde")]
 
 use pitch_calc::hz::Hz;
 use pitch_calc::letter::Letter;

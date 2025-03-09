@@ -170,7 +170,7 @@ impl Eq for Step {}
 impl PartialOrd for Step {
     #[inline]
     fn partial_cmp(&self, other: &Step) -> Option<Ordering> {
-        self.step().partial_cmp(&other.step())
+        Some(self.cmp(other))
     }
 }
 

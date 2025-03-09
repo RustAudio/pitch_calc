@@ -7,7 +7,7 @@ extern crate pitch_calc;
 use pitch_calc::{Hz, Letter, LetterOctave, ScaledPerc, Step};
 
 fn main() {
-    println!("");
+    println!();
 
     // You can convert midi-step to letter octave
     assert!(Step(64.0).to_letter_octave() == LetterOctave(Letter::E, 4));
@@ -21,14 +21,14 @@ fn main() {
         println!("{:?}: {:?}", i, Step(i as f32).letter());
     }
 
-    println!("");
+    println!();
 
     // This will print A at octaves 0 - 9 next to the equivalent frequency in hz.
     for i in 0..10 {
         println!("A{:?} == {:?}hz", i, LetterOctave(Letter::A, i).hz())
     }
 
-    println!("");
+    println!();
 
     // The `ToPerc` trait allows us to convert any pitch to a percentage between the human hearing
     // range (20hz - 20_000hz)
@@ -36,7 +36,7 @@ fn main() {
     println!("20_000hz == {:?}%", Hz(20_000.0).perc() * 100.0);
     println!("10_010hz == {:?}%", Hz(10_010.0).perc() * 100.0);
 
-    println!("");
+    println!();
 
     // We can also "weight" a particular area of the frequency spectrum using the scaled
     // percentage type.

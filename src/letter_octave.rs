@@ -177,18 +177,18 @@ impl Eq for LetterOctave {}
 impl PartialOrd for LetterOctave {
     #[inline]
     fn partial_cmp(&self, other: &LetterOctave) -> Option<Ordering> {
-        let LetterOctave(letter, octave) = *self;
-        let LetterOctave(other_letter, other_octave) = *other;
-        match octave.partial_cmp(&other_octave) {
-            Some(Ordering::Equal) => letter.partial_cmp(&other_letter),
-            ordering => ordering,
-        }
+        Some(self.cmp(other))
     }
 }
 
 impl Ord for LetterOctave {
     #[inline]
     fn cmp(&self, other: &LetterOctave) -> Ordering {
-        self.partial_cmp(other).unwrap()
+        let LetterOctave(letter, octave) = *self;
+        let LetterOctave(other_letter, other_octave) = *other;
+        match octave.cmp(&other_octave) {
+            Ordering::Equal => letter.cmp(&other_letter),
+            ordering => ordering,
+        }
     }
 }

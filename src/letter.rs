@@ -5,6 +5,8 @@ use num_traits::{FromPrimitive, PrimInt as Int, ToPrimitive};
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
 
+use rand::{distr::Distribution, Rng};
+
 pub const TOTAL_LETTERS: u8 = 12;
 
 /// The letter representation for each step in the 12-tone, equal temperament, chromatic scale.
@@ -32,8 +34,7 @@ pub enum Letter {
 
 impl PartialOrd for Letter {
     fn partial_cmp(&self, other: &Letter) -> Option<Ordering> {
-        let other_u8 = other.to_u8().unwrap();
-        self.to_u8().unwrap().partial_cmp(&other_u8)
+        Some(self.cmp(other))
     }
 }
 
@@ -135,9 +136,9 @@ impl ToPrimitive for Letter {
     }
 }
 
-impl ::rand::Rand for Letter {
-    fn rand<R: ::rand::Rng>(rng: &mut R) -> Letter {
-        rng.gen_range(0, 12).to_letter()
+impl Distribution<Letter> for Letter {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Letter {
+        rng.random_range(0..12).to_letter()
     }
 }
 
